@@ -90,6 +90,37 @@ def updateProperty(request,dataid):
     data=propertydb.objects.filter(id=dataid)
     return render(request, "updateproperty.html",{"data":data})
 
+
+
+
+def updatepropertyfun(request, item):
+    if request.method=="POST":
+        CategoryName = request.POST.get("CategoryName")
+        description = request.POST.get("description")
+        price = request.POST.get("price")
+        sqft = request.POST.get("sqft")
+        floor = request.POST.get("floor")
+        
+
+        try:
+            IM=request.FILES['image']
+            FS=FileSystemStorage()
+            file=FS.save(IM.name,IM)
+
+        except MultiValueDictKeyError:
+            file=propertydb.objects.get(id=item).image
+
+        propertydb.objects.filter(id=item).update(CategoryName=CategoryName,description=description,price=price,sqft=sqft,floor=floor,image=file)
+    return redirect(showproperty)
+
+
+
+
+def deleteproperty(request, dataid):
+    data=propertydb.objects.filter(id=dataid)
+    data.delete()
+    return redirect(showproperty)
+
 def Addinteriorcategory(request):
     return render(request, "Addinteriorcategory.html")
 

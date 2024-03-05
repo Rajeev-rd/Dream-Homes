@@ -16,4 +16,6 @@ urlpatterns = [
     path('Addpropertyfun/', views.Addpropertyfun, name="Addpropertyfun"),
     path('showproperty/', views.showproperty, name="showproperty"),
     path('updateProperty/<int:dataid>', views.updateProperty, name="updateProperty"),
+    path('updatepropertyfun/<item>', views.updatepropertyfun, name="updatepropertyfun"),    
+    path('deleteproperty/<dataid>', views.deleteproperty, name="deleteproperty"),
     ]

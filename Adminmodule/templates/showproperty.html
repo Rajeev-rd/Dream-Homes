@@ -39,26 +39,28 @@
                             <tr>
                                 <th>ID</th>
                                 <th>CategoryName</th>
+                                <th>Name</th>
                                 <th>description</th>
                                 <th>price</th>
                                 <th>SQFT</th>
                                 <th>Floor</th>
                                 <th>image</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>ID</th>
                                 <th>CategoryName</th>
+                                <th>Name</th>
                                 <th>description</th>
                                 <th>price</th>
                                 <th>SQFT</th>
                                 <th>Floor</th>
                                 <th>image</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                             </tr>
                         </tfoot>
                         {% for i in data %}
@@ -66,6 +68,7 @@
                             <tr>
                                 <td>{{i.id}}</td>
                                 <td>{{i.CategoryName}}</td>
+                                <td>{{i.name}}</td>
                                 <td>{{i.description}}</td>
                                 <td>{{i.price}}</td>
                                 <td>{{i.sqft}}</td>
@@ -76,11 +79,11 @@
                                     Update
                                 <button></td>
                                 </form>
-                                <form action="{% url 'deletecategory' dataid=i.id %}" method="get" enctype="multipart/form-data">
+                                <form action="{% url 'deleteproperty' dataid=i.id %}" method="get" enctype="multipart/form-data">
                                 <td><button type="submit" class="btn btn-primary btn-user btn-block">
                                     Delete
                                 <button></td>
-                                    </form>
+                                </form>
                             </tr>
          
                         </tbody>
