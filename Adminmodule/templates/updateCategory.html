@@ -39,20 +39,22 @@
                                 <h1 class="h3 font-weight-bold text-gray-900 mb-4">Add Category</h1>
                             </div>
 
-
-<form method="post" action="{% url 'AddCategoryfun' %}" enctype="multipart/form-data">
+                            {% for i in data %}
+<form method="post" action="{% url 'updateCategoryfun' item=i.id %}" enctype="multipart/form-data">
     {% csrf_token %}
-    <input type="text" name="CategoryName" placeholder="Category"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">
-    <input type="text" name="description" placeholder="description"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">
+    
+    <input type="text" name="CategoryName" placeholder="Category"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.CategoryName}}">
+    <input type="text" name="description" placeholder="description"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.description}}">
 
 <div class="form-group custom-input">
     <div class="input-group">
         <div class="custom-file" style="width: 900px; border-radius: 50px;">
-            <input type="file" name="image" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon">
+            <input type="file" name="image" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon" value="{{i.image.url}}">
             <label class="custom-file-label" for="customFile">No file chosen</label>
         </div>
     </div>
 </div>
+
 <br>
 
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
@@ -60,6 +62,7 @@
                                 <button>
                                 
                             </form>
+                            {% endfor %}
                             
 
 
