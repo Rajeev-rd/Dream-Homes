@@ -28,7 +28,7 @@
 
     <div class="container">
 
-        <div class="card o-hidden border-0 shadow-lg my-5" style="border-radius: 50px;">
+        <div class="card o-hidden border-0 shadow-lg my-5" style="border-radius: 50px;" >
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
@@ -36,31 +36,37 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h3 font-weight-bold text-gray-900 mb-4">Add Category</h1>
+                                <h1 class="h3 font-weight-bold text-gray-900 mb-4">Add Property</h1>
                             </div>
+                            
 
 
-<form method="post" action="{% url 'AddCategoryfun' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="text" name="CategoryName" placeholder="Category"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">
-    <input type="text" name="description" placeholder="description"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">
+<form class="user">
+    <select class="form-group custom-input" name="CategoryName" style="width: 700px;height:40px; border-radius: 50px;">
+        <option>CategoryName</option>
 
-<div class="form-group custom-input">
+    </select>
+
+
+<input type="text" name="roomname" placeholder="RoomName"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">
+<input type="text" name="description" placeholder="description"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">
+<input type="text" name="price" placeholder="price"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">
+
+<div class="form-group">
     <div class="input-group">
         <div class="custom-file" style="width: 900px; border-radius: 50px;">
-            <input type="file" name="image" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon">
+            <input type="file" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon">
             <label class="custom-file-label" for="customFile">No file chosen</label>
         </div>
     </div>
 </div>
-<br>
 
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                <a href="login.html" class="btn btn-primary btn-user btn-block">
                                     Add
-                                <button>
-                                
+                                </a>
+                                <hr>
                             </form>
-                            
+                            <hr>
 
 
                         </div>
