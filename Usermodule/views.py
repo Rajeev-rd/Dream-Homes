@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from Adminmodule.views import index
 from django.contrib.auth import authenticate,login
 from django.contrib import messages
+from django.http import JsonResponse
+from django.contrib.auth import logout as django_logout
 
 # Create your views here.
 
@@ -75,7 +77,18 @@ def loginusers(request):
     
 def myview(request):
     user_logged_in = RegistrationDb.objects.exists()
-    return render(request,"frontendindexpage.html", {'user_is_logged_in': user_is_logged_in})
+    return render(request,"frontendindexpage.html", {'user_is_logged_in':user_is_logged_in})
+
+def check_authentication(request):
+    if request.user.is_authenticated:
+        return JsonResponse({'authenticated': True})
+    else:
+        return JsonResponse({'authenticated': False})
+    
+def logout(request):
+    # Log out the user using Django's logout function
+    django_logout(request)
+    return JsonResponse({'message': 'Logged out successfully'})
 
 #function for index of user view
 def indexfront(request):
