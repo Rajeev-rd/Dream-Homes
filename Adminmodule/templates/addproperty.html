@@ -45,7 +45,7 @@
     {% csrf_token %}
     <select class="form-group custom-input" name="CategoryName" style="width: 700px;height:40px; border-radius: 50px;">
         {% for i in data %}
-        <option>{{i.CategoryName}}</option>
+        <option>{{i.name}}</option>
         {% endfor %}
 
     </select>

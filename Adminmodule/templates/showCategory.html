@@ -38,7 +38,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>CategoryName</th>
+                                <th>Category</th>
                                 <th>description</th>
                                 <th>image</th>
                                 <th>Update</th>
@@ -48,7 +48,7 @@
                         <tfoot>
                             <tr>
                                 <th>ID</th>
-                                <th>CategoryName</th>
+                                <th>Category</th>
                                 <th>description</th>
                                 <th>image</th>
                                 <th>Update</th>
@@ -59,7 +59,7 @@
                         <tbody>
                             <tr>
                                 <td>{{i.id}}</td>
-                                <td>{{i.CategoryName}}</td>
+                                <td>{{i.name}}</td>
                                 <td>{{i.description}}</td>
                                 <td><img src="{{i.image.url}}" width="50px" height="=30px"></td>
                                 <form action="{% url 'updateCategory' dataid=i.id %}" method="get" enctype="multipart/form-data">
