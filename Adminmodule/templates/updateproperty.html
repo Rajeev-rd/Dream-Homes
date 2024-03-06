@@ -39,18 +39,18 @@
                                 <h1 class="h3 font-weight-bold text-gray-900 mb-4">Update Property</h1>
                             </div>
                             
+                            {% for i in data %}
 
-
-<form method="post" action="{% url 'Addpropertyfun' %}" enctype="multipart/form-data">
+<form method="post" action="{% url 'updatepropertyfun' item=i.id %}" enctype="multipart/form-data">
     {% csrf_token %}
     <select class="form-group custom-input" name="CategoryName" style="width: 700px;height:40px; border-radius: 50px;">
-        {% for i in data %}
+
         <option>{{i.CategoryName}}</option>
-        {% endfor %}
+
 
     </select>
 
-    {% for i in data %}
+
 <input type="text" name="name" placeholder="Name"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.CategoryName}}">
 <input type="text" name="description" placeholder="description"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.description}}">
 <input type="text" name="price" placeholder="price"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.price}}">
@@ -60,18 +60,19 @@
 <div class="form-group">
     <div class="input-group">
         <div class="custom-file" style="width: 900px; border-radius: 50px;">
-            <input type="file" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon" name="image">
+            <input type="file" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon" name="image" value="{{i.image}}">
             <label class="custom-file-label" for="customFile">No file chosen</label>
         </div>
     </div>
 </div>
-{% endfor %}
+
 
                                 <button class="btn btn-primary btn-user btn-block">
                                     Add
                                 </button>
                                 <hr>
                             </form>
+                            {% endfor %}
                             <hr>
 
                         </div>
