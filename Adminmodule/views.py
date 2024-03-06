@@ -131,7 +131,7 @@ def Addinteriorcategory(request):
 def Addinteriourfun(request):
 
     if request.method == "POST":
-        name = request.POST.get("CategoryName")
+        CategoryName = request.POST.get("CategoryName")
         description = request.POST.get("description")
 
 
