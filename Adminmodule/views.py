@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from Adminmodule.models import Category,propertydb
+from Adminmodule.models import Category,Property
 from django.core.files.storage import FileSystemStorage
 from django.utils.datastructures import MultiValueDictKeyError
 
@@ -19,7 +19,7 @@ def AddCategoryfun(request):
 
 
         IM = request.FILES["image"]
-        obj = Category(CategoryName=CategoryName, description=description,image=IM)
+        obj = Category(name=CategoryName, description=description,image=IM)
         obj.save()
     return redirect(AddCategory)
 
@@ -47,7 +47,7 @@ def updateCategoryfun(request, item):
         except MultiValueDictKeyError:
             file=Category.objects.get(id=item).image
 
-        Category.objects.filter(id=item).update(CategoryName=CategoryName,description=description,image=file)
+        Category.objects.filter(id=item).update(name=CategoryName,description=description,image=file)
     return redirect(showCategory)
 
 
@@ -74,7 +74,9 @@ def Addpropertyfun(request):
 
 
         IM = request.FILES["image"]
-        obj = propertydb(CategoryName=CategoryName, name=name,price=price, description=description,floor=floor,sqft=sqft,image=IM)
+        category_instance = Category.objects.get(name=CategoryName)
+
+        obj = Property(category=category_instance, name=name, price=price, description=description, floor=floor, sqft=sqft, image=IM)
         obj.save()
     return redirect(AddCategory)
 
@@ -83,12 +85,13 @@ def Addpropertyfun(request):
 
 
 def showproperty(request):
-    data=propertydb.objects.all()
+    data=Property.objects.all()
     return render(request, "showproperty.html",{"data":data})
 
 def updateProperty(request,dataid):
-    data=propertydb.objects.filter(id=dataid)
-    return render(request, "updateproperty.html",{"data":data})
+    data=Property.objects.filter(id=dataid)
+    datas=Category.objects.all()
+    return render(request, "updateproperty.html",{"data":data,"datas":datas})
 
 
 
@@ -108,21 +111,34 @@ def updatepropertyfun(request, item):
             file=FS.save(IM.name,IM)
 
         except MultiValueDictKeyError:
-            file=propertydb.objects.get(id=item).image
+            file=Property.objects.get(id=item).image
 
-        propertydb.objects.filter(id=item).update(CategoryName=CategoryName,description=description,price=price,sqft=sqft,floor=floor,image=file)
+        Property.objects.filter(id=item).update(CategoryName=CategoryName,description=description,price=price,sqft=sqft,floor=floor,image=file)
     return redirect(showproperty)
 
 
 
 
 def deleteproperty(request, dataid):
-    data=propertydb.objects.filter(id=dataid)
+    data=Property.objects.filter(id=dataid)
     data.delete()
     return redirect(showproperty)
 
 def Addinteriorcategory(request):
     return render(request, "Addinteriorcategory.html")
+
+
+def Addinteriourfun(request):
+
+    if request.method == "POST":
+        name = request.POST.get("CategoryName")
+        description = request.POST.get("description")
+
+
+        IM = request.FILES["image"]
+        obj = Category(name=CategoryName, description=description,image=IM)
+        obj.save()
+    return redirect(AddCategory)
 
 def Addinterior(request):
     return render(request, "Addinterior.html")
