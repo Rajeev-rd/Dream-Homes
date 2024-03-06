@@ -16,6 +16,9 @@ urlpatterns = [
     path('Addpropertyfun/', views.Addpropertyfun, name="Addpropertyfun"),
     path('showproperty/', views.showproperty, name="showproperty"),
     path('updateProperty/<int:dataid>', views.updateProperty, name="updateProperty"),
+<<<<<<< HEAD
+=======
     path('updatepropertyfun/<item>', views.updatepropertyfun, name="updatepropertyfun"),    
     path('deleteproperty/<dataid>', views.deleteproperty, name="deleteproperty"),
+>>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
     ]

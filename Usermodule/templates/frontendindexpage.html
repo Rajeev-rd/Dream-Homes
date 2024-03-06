@@ -103,7 +103,7 @@
                                 var profileLink = document.getElementById("profileLink");
                                 var loginButton = document.getElementById("loginButton");
                                 var dropdownMenu = document.getElementById("profileDropdown");
-                    
+                        
                                 if (isAuthenticated) {
                                     // If user is authenticated, show profile dropdown and hide login button
                                     profileLink.style.display = "block";
@@ -116,7 +116,7 @@
                                     loginButton.style.display = "block";
                                 }
                             }
-                    
+                        
                             // Function to close dropdown menu when clicking outside
                             window.onclick = function(event) {
                                 if (!event.target.matches('.dropdown-toggle')) {
@@ -129,31 +129,41 @@
                                     }
                                 }
                             }
+                        
+                            // Function to handle page unload event
+                            window.onbeforeunload = function() {
+                                // Send AJAX request to logout the user when the page is closed or refreshed
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "{% url 'logout' %}", true);
+                                xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}'); // Add CSRF token if needed
+                                xhr.send();
+                            }
+                        
+                            // Call the changeMenu function when the page loads to set initial state
+                            window.onload = function() {
+                                // Pass the authentication status from Django to JavaScript
+                                var isAuthenticated = {% if request.session.username %} true {% else %} false {% endif %};
+                                changeMenu(isAuthenticated);
+                            };
                         </script>
-                    
-                        {% if user.is_authenticated %}
+                        
+                        {% if request.session.username %}
                             <div class="nav-item dropdown">
                                 <a id="profileLink" href="#" class="nav-link dropdown-toggle" onclick="changeMenu(true)">Profile</a>
                                 <div id="profileDropdown" class="dropdown-menu m-0" style="display: none;">
-                                    <a href="{% url 'projects' %}" class="dropdown-item">Our Project</a>
-                                    <a href="team.html" class="dropdown-item">The Team</a>
-                                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                    <a href="blog.html" class="dropdown-item">Blog Grid</a>
-                                    <a href="detail.html" class="dropdown-item">Blog Detail</a>
+                                    <a href="#" class="dropdown-item">Our Project</a>
+                                    <a href="#" class="dropdown-item">The Team</a>
+                                    <a href="#" class="dropdown-item">Testimonial</a>
+                                    <a href="#" class="dropdown-item">Blog Grid</a>
+                                    <a href="#" class="dropdown-item">Blog Detail</a>
                                 </div>
                             </div>
                         {% else %}
                             <a id="loginButton" class="btn btn-primary" href="{% url 'logins' %}" role="button" style="margin-top: 29px;" onclick="changeMenu(false)">Login</a>
                         {% endif %}
-                    
-                        <!-- Call the changeMenu function when the page loads to set initial state -->
-                        <script>
-                            window.onload = function() {
-                                // Pass the authentication status from Django to JavaScript
-                                var isAuthenticated = {% if user.is_authenticated %} true {% else %} false {% endif %};
-                                changeMenu(isAuthenticated);
-                            };
-                        </script>
+                        
+                        
+                        
                     </div>
                     <a href="{% url 'contact' %}" class="nav-item nav-link bg-primary text-white px-5 ms-3 d-none d-lg-block">Get A Call <i class="bi bi-arrow-right"></i></a>
                     
@@ -173,7 +183,7 @@
                         <div class="p-3" style="max-width: 900px;">
                             <i class="fa fa-home fa-4x text-primary mb-4 d-none d-sm-block"></i>
                             <h1 class="display-2 text-uppercase text-white mb-md-4">Build Your Dream House With Us</h1>
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 mt-2">Get A Call</a>
+                            <a href="{% url 'contact' %}" class="btn btn-primary py-md-3 px-md-5 mt-2">Get A Call</a>
                         </div>
                     </div>
                 </div>
@@ -183,7 +193,7 @@
                         <div class="p-3" style="max-width: 900px;">
                             <i class="fa fa-tools fa-4x text-primary mb-4 d-none d-sm-block"></i>
                             <h1 class="display-2 text-uppercase text-white mb-md-4">We Are Trusted For Your Project</h1>
-                            <a href="" class="btn btn-primary py-md-3 px-md-5 mt-2">Get A Call</a>
+                            <a href="{% url 'contact' %}" class="btn btn-primary py-md-3 px-md-5 mt-2">Get A Call</a>
                         </div>
                     </div>
                 </div>
@@ -332,7 +342,7 @@
                     <h1 class="display-5 text-uppercase mb-4">Request A <span class="text-primary">Call Back</span></h1>
                 </div>
                 <p class="mb-5">Nonumy ipsum amet tempor takimata vero ea elitr. Diam diam ut et eos duo duo sed. Lorem elitr sadipscing eos et ut et stet justo, sit dolore et voluptua labore. Ipsum erat et ea ipsum magna sadipscing lorem. Sit lorem sea sanctus eos. Sanctus sit tempor dolores ipsum stet justo sit erat ea, sed diam sanctus takimata sit. Et at voluptua amet erat justo amet ea ipsum eos, eirmod accusam sea sed ipsum kasd ut.</p>
-                <a class="btn btn-primary py-3 px-5" href="">Get A Quote</a>
+                <a class="btn btn-primary py-3 px-5" href="{% url 'contact' %}">Get A Call</a>
             </div>
             <div class="col-lg-8">
                 <div class="bg-light text-center p-5">
@@ -360,6 +370,9 @@
                             </div>
                             <div class="col-12">
                                 <textarea class="form-control border-0" rows="5" placeholder="Message"></textarea>
+                            </div>
+                            <div>
+                                <input type="text" placeholder="location" class="form-control border-0" >
                             </div>
                             <div class="col-12">
                                 <button class="btn btn-primary w-100 py-3" type="submit">Submit Request</button>
