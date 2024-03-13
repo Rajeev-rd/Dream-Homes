@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dream Home Management System</title>
-<style>
-/* CUSTOM UTIL CLASSES */
-.border-md {
+<style> -->
+<!-- /* CUSTOM UTIL CLASSES */ -->
+<!-- .border-md {
     border-width: 2px;
 }
 
@@ -17,49 +17,131 @@
 
 .btn-facebook:hover, .btn-facebook:focus {
     background: #314879;
-}
+} -->
 
-.btn-twitter {
-    background: #42AEEC;
-    border: none;
-}
 
-.btn-twitter:hover, .btn-twitter:focus {
-    background: #1799e4;
-}
+<!-- </style>
+</head>
+<body> -->
+<!-- Navbar-->
+<!-- <header class="header">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <nav class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="container"> -->
+            <!-- Navbar Brand -->
+            <!-- <a href="#" class="navbar-brand">
+                <img src="https://bootstrapious.com/i/snippets/sn-registeration/logo.svg" alt="logo" width="150">
+            </a>
+        </div>
+    </nav>
+</header>
 
-/* FOR DEMO PURPOSES */
-body {
-    min-height: 100vh;
-}
+<div class="container">
+    <div class="row py-5 mt-4 align-items-center"> -->
+        <!-- For Demo Purpose -->
+        <!-- <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+            <img src="https://bootstrapious.com/i/snippets/sn-registeration/illustration.svg" alt="" class="img-fluid mb-3 d-none d-md-block">
+            <h1>Create an Account</h1>
+        </div> -->
 
-.form-control:not(select) {
-    padding: 1.5rem 0.5rem;
-}
+      
+        <!-- Registeration Form -->
+        <!-- <div class="col-md-7 ">
+            <form action="" method="post" class=" border border-3 rounded-5 shadow border-white text-secondary" >
+                {%csrf_token%}
+                {{form.as_p}}
+                <button class="btn btn-outline-primary" type="submit">register</button>
+            </form>
+            <div class="form-group col-lg-12 mx-auto">
+                <a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
+                    <i class="fa fa-facebook-f mr-2"></i>
+                    <span class="font-weight-bold">Continue with Facebook</span>
+                </a>
+                <a href="#" class="btn btn-primary btn-block py-2 btn-twitter">
+                    <i class="fa fa-twitter mr-2"></i>
+                    <span class="font-weight-bold">Continue with Twitter</span>
+                </a>
+            </div> -->
 
-select.form-control {
-    height: 52px;
-    padding-left: 0.5rem;
-}
+            <!-- Already Registered -->
+            <!-- <div class="text-center w-100">
+                <p class="text-muted font-weight-bold">Already Registered? <a href="{% url 'login'%}" class="text-primary ml-2">Login</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-.form-control::placeholder {
-    color: #ccc;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-.form-control:focus {
-    box-shadow: none;
-}
-.input-group-text i {
-    line-height: 2 !important; /* Adjust as needed */
-}
-</style>
+</script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Home Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <style>
+        /* CUSTOM UTIL CLASSES */
+        .border-md {
+            border-width: 2px;
+        }
+
+        .btn-facebook {
+            background: #405D9D;
+            border: none;
+        }
+
+        .btn-facebook:hover, .btn-facebook:focus {
+            background: #314879;
+        }
+
+        .btn-twitter {
+            background: #42AEEC;
+            border: none;
+        }
+
+        .btn-twitter:hover, .btn-twitter:focus {
+            background: #1799e4;
+        }
+
+        /* FOR DEMO PURPOSES */
+        body {
+            min-height: 100vh;
+        }
+
+        .form-control:not(select) {
+            padding: 1.5rem 0.5rem;
+        }
+
+        select.form-control {
+            height: 52px;
+            padding-left: 0.5rem;
+        }
+
+        .form-control::placeholder {
+            color: #ccc;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+        }
+
+        .input-group-text i {
+            line-height: 2 !important; /* Adjust as needed */
+        }
+    </style>
 </head>
 <body>
 <!-- Navbar-->
 <header class="header">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <nav class="navbar navbar-expand-lg navbar-light py-3">
         <div class="container">
             <!-- Navbar Brand -->
@@ -72,163 +154,109 @@ select.form-control {
 
 <div class="container">
     <div class="row py-5 mt-4 align-items-center">
-        <!-- For Demo Purpose -->
         <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
             <img src="https://bootstrapious.com/i/snippets/sn-registeration/illustration.svg" alt="" class="img-fluid mb-3 d-none d-md-block">
             <h1>Create an Account</h1>
         </div>
 
-        {% if error_message %}
-        <script>alert("{{ error_message }}");</script>
-        {% endif %}
-
-        <!-- Registeration Form -->
         <div class="col-md-7 col-lg-6 ml-auto">
             <form id="registrationForm" action="{% url 'signup' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row">
-
-                    <!-- Name -->
-                    <div class="input-group col-lg-6 mb-4">
-                        
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span>
-                        
-                        <input id="firstName" type="text" name="name" placeholder="username" class="form-control bg-white border-left-0 border-md" required>
-                    </div>
-
-                    <!-- Email Address -->
-                    <div class="input-group col-lg-12 mb-4">
-                        
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-envelope text-muted"></i>
-                            </span>
-                        
-                        <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md" required >
-                    </div>
-
-                    <!-- Phone Number -->
-                    <div class="input-group col-lg-12 mb-4">
-                      
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-phone-square text-muted"></i>
-                            </span>
-                       
-                        <select id="countryCode" name="countryCode" style="max-width: 80px" class="custom-select form-control bg-white border-left-0 border-md h-100 font-weight-bold text-muted">
-                            <option value="">+91</option>
-                            <option value="">+10</option>
-                            <option value="">+15</option>
-                            <option value="">+18</option>
-                        </select>
-                        <input id="phoneNumber" type="tel" name="mobile" placeholder="mobile" class="form-control bg-white border-md border-left-0 pl-3" required >
-                    </div>.
-
-
-                    <!-- Job -->
-                   
-                    <!-- Password -->
-                    <div class="input-group col-lg-6 mb-4">
-                        <span class="input-group-text bg-white px-4 border-md border-right-0">
-                            <i class="fa fa-lock text-muted"></i>
-                        </span>
-                        <input id="password" type="password" name="password" placeholder="password" class="form-control bg-white border-left-0 border-md" required>
-                        <span class="input-group-text bg-white border-left-0 border-md">
-                            <i class="password-toggle-icon fas fa-eye-slash" onclick="togglePasswordVisibility('password')"></i>
-                        </span>
-                    </div>
-
-                    <!-- Password Confirmation -->
-                    <div class="input-group col-lg-6 mb-4">
-                        <span class="input-group-text bg-white px-4 border-md border-right-0">
-                            <i class="fa fa-lock text-muted"></i>
-                        </span>
-                        <input id="passwordConfirmation" type="password" name="confirm_password" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md" required>
-                        <span class="input-group-text bg-white border-left-0 border-md">
-                            <i class="password-toggle-icon fas fa-eye-slash" onclick="togglePasswordVisibility('passwordConfirmation')"></i>
-                        </span>
-                    </div>
+                    {% for field in form %}
+                        <div class="col-lg-12 mb-4">
+                            {% if field.name == 'username' %}
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                        <i class="fa fa-user text-muted"></i>
+                                    </span>
+                                    {{ field }}
+                                </div>
+                            {% elif field.name == 'password1' %}
+                                <div class="input-group">
+                                    <input id="id_password1" type="password" name="password1" placeholder="Password" class="form-control bg-white border-md border-right-0" required>
+                                    <span class="input-group-text bg-white border-md border-left-0">
+                                        <i class="password-toggle-icon fas fa-eye-slash" onclick="togglePasswordVisibility('id_password1')"></i>
+                                    </span>
+                                </div>
+                            {% elif field.name == 'password2' %}
+                                <div class="input-group">
+                                    <input id="id_password2" type="password" name="password2" placeholder="Confirm Password" class="form-control bg-white border-md" required>
+                                    <span class="input-group-text bg-white border-md border-left-0">
+                                        <i class="password-toggle-icon fas fa-eye-slash" onclick="togglePasswordVisibility('id_password2')"></i>
+                                    </span>
+                                </div>
+                            {% elif field.name == 'email' %}
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                        <i class="fa fa-envelope text-muted"></i>
+                                    </span>
+                                    {{ field }}
+                                </div>
+                            {% else %}
+                                {{ field }}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
 
                     <!-- Submit Button -->
                     <div class="form-group col-lg-12 mx-auto mb-0">
-                        <a href="#" class="btn btn-primary btn-block py-2">
-                            <button type="submit" class="btn btn-primary btn-block py-2">Create your account</button>
-                        </a>
+                        <button type="submit" class="btn btn-primary btn-block py-2">Create your account</button>
                     </div>
-
-                    <!-- Divider Text -->
-                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
-                        <div class="border-bottom w-100 ml-5"></div>
-                        <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
-                        <div class="border-bottom w-100 mr-5"></div>
-                    </div>
-
-                    <!-- Social Login -->
-                    <div class="form-group col-lg-12 mx-auto">
-                        <a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
-                            <i class="fa fa-facebook-f mr-2"></i>
-                            <span class="font-weight-bold">Continue with Facebook</span>
-                        </a>
-                        <a href="#" class="btn btn-primary btn-block py-2 btn-twitter">
-                            <i class="fa fa-twitter mr-2"></i>
-                            <span class="font-weight-bold">Continue with Twitter</span>
-                        </a>
-                    </div>
-
-                    <!-- Already Registered -->
-                    <div class="text-center w-100">
-                        <p class="text-muted font-weight-bold">Already Registered? <a href="#" class="text-primary ml-2">Login</a></p>
-                    </div>
-
                 </div>
             </form>
         </div>
+        <div class="form-group col-lg-12 mx-auto">
+            <a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
+                <i class="fa fa-facebook-f mr-2"></i>
+                <span class="font-weight-bold">Continue with Facebook</span>
+            </a>
+            <a href="#" class="btn btn-primary btn-block py-2 btn-twitter">
+                <i class="fa fa-twitter mr-2"></i>
+                <span class="font-weight-bold">Continue with Twitter</span>
+            </a>
+        </div>
+
+        <!-- Already Registered -->
+        <div class="text-center w-100">
+            <p class="text-muted font-weight-bold">Already Registered? <a href="#" class="text-primary ml-2">Login</a></p>
+        </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<!-- Your JavaScript libraries and scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-// For Demo Purpose [Changing input group text on focus]
-$(function () {
-    $('input, select').on('focus', function () {
-        $(this).parent().find('.input-group-text').css('border-color', '#80bdff');
-    });
-    $('input, select').on('blur', function () {
-        $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
-    });
-});
-
- // Initialize the initial password visibility state
- var initialPasswordState = '{% if request.session.PASSWORD %}password{% else %}text{% endif %}';
-
-// Set the initial type attribute of the password input
-document.getElementById('password').type = initialPasswordState;
-
-function togglePasswordVisibility(passwordFieldId) {
-    var passwordField = document.getElementById(passwordFieldId);
-    var icon = document.querySelector('.password-toggle-icon');
-
-    if (passwordField.type === 'password') {
-        passwordField.type = 'text';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
-    } else {
-        passwordField.type = 'password';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
+    // Function to hide username and email fields after successful registration
+    function hideUsernameAndEmailFields() {
+        document.getElementById("usernameField").style.display = "none";
+        document.getElementById("emailField").style.display = "none";
     }
-}
-document.getElementById("registrationForm").addEventListener("submit", function(event) {
-            var password = document.getElementById("password").value;
-            var confirm_password = document.getElementById("confirm_password").value;
-            var email = document.getElementById("email").value;
 
-            if (password !== confirm_password) {
-                alert("Passwords do not match.");
-                event.preventDefault();
-            }
-        });
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+        var password = document.getElementById("id_password1").value;
+        var confirm_password = document.getElementById("id_password2").value;
+        var email = document.getElementById("id_email").value;
+
+        if (password !== confirm_password) {
+            alert("Passwords do not match.");
+            event.preventDefault();
+        }
+
+        if (!validateEmail(email)) {
+            alert("Invalid email format.");
+            event.preventDefault();
+        }
+
+        if (checkEmailExists(email)) {
+            alert("Email is already used.");
+            event.preventDefault();
+        }
+        
+        // Assuming successful registration here, call hideUsernameAndEmailFields()
+        hideUsernameAndEmailFields();
+    });
 </script>
 </body>
 </html>

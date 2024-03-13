@@ -84,88 +84,62 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
                     <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <!-- codition to hide from non login -->
+                    {% if user.is_authenticated %}
                     <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="nav-item nav-link">About</a>
+                    {% endif %}
+                    <!-- codition to hide from non login -->
+                    {% if user.is_authenticated %}
                     <a href="{% url 'service' %}" class="nav-item nav-link">Service</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="nav-item nav-link">Service</a>
+                    {% endif %}
+
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0">
+                            <!-- codition to hide from non login -->
+                            {% if user.is_authenticated %}
                             <a href="{% url 'projects' %}" class="dropdown-item">Our Project</a>
-                            <a href="team.html" class="dropdown-item">The Team</a>
                             <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="blog.html" class="dropdown-item">Blog Grid</a>
-                            <a href="detail.html" class="dropdown-item">Blog Detail</a>
+                            {% else %}
+                            <a href="{% url 'login' %}" class="dropdown-item">Our Project</a>
+                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                            {% endif %}
                         </div>
                     </div>
                     <div>
-                        <script>
-                            // Function to change the navigation menu
-                            function changeMenu(isAuthenticated) {
-                                var profileLink = document.getElementById("profileLink");
-                                var loginButton = document.getElementById("loginButton");
-                                var dropdownMenu = document.getElementById("profileDropdown");
-                        
-                                if (isAuthenticated) {
-                                    // If user is authenticated, show profile dropdown and hide login button
-                                    profileLink.style.display = "block";
-                                    dropdownMenu.style.display = "block";
-                                    loginButton.style.display = "none";
-                                } else {
-                                    // If user is not authenticated, show login button and hide profile dropdown
-                                    profileLink.style.display = "none";
-                                    dropdownMenu.style.display = "none";
-                                    loginButton.style.display = "block";
-                                }
-                            }
-                        
-                            // Function to close dropdown menu when clicking outside
-                            window.onclick = function(event) {
-                                if (!event.target.matches('.dropdown-toggle')) {
-                                    var dropdowns = document.getElementsByClassName("dropdown-menu");
-                                    for (var i = 0; i < dropdowns.length; i++) {
-                                        var openDropdown = dropdowns[i];
-                                        if (openDropdown.style.display === "block") {
-                                            openDropdown.style.display = "none";
-                                        }
-                                    }
-                                }
-                            }
-                        
-                            // Function to handle page unload event
-                            window.onbeforeunload = function() {
-                                // Send AJAX request to logout the user when the page is closed or refreshed
-                                var xhr = new XMLHttpRequest();
-                                xhr.open("POST", "{% url 'logout' %}", true);
-                                xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}'); // Add CSRF token if needed
-                                xhr.send();
-                            }
-                        
-                            // Call the changeMenu function when the page loads to set initial state
-                            window.onload = function() {
-                                // Pass the authentication status from Django to JavaScript
-                                var isAuthenticated = {% if request.session.username %} true {% else %} false {% endif %};
-                                changeMenu(isAuthenticated);
-                            };
-                        </script>
-                        
-                        {% if request.session.username %}
-                            <div class="nav-item dropdown">
-                                <a id="profileLink" href="#" class="nav-link dropdown-toggle" onclick="changeMenu(true)">Profile</a>
-                                <div id="profileDropdown" class="dropdown-menu m-0" style="display: none;">
-                                    <a href="#" class="dropdown-item">Our Project</a>
-                                    <a href="#" class="dropdown-item">The Team</a>
-                                    <a href="#" class="dropdown-item">Testimonial</a>
-                                    <a href="#" class="dropdown-item">Blog Grid</a>
-                                    <a href="#" class="dropdown-item">Blog Detail</a>
-                                </div>
-                            </div>
+                
+                        <!-- codition to change button to dropdown -->
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{user}}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="">Message</a></li>
+                                <li><a class="dropdown-item" href="">Projects</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
                         {% else %}
-                            <a id="loginButton" class="btn btn-primary" href="{% url 'logins' %}" role="button" style="margin-top: 29px;" onclick="changeMenu(false)">Login</a>
+                            <li class="nav-item">
+                                <a id="loginButton" class="btn btn-primary" href="{% url 'login' %}" role="button" style="margin-top: 29px;">Login</a>
+                            </li>
                         {% endif %}
+
                         
                         
                         
                     </div>
+                    <!-- codition to hide from non login -->
+                    {% if request.session.username %}
                     <a href="{% url 'contact' %}" class="nav-item nav-link bg-primary text-white px-5 ms-3 d-none d-lg-block">Get A Call <i class="bi bi-arrow-right"></i></a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="nav-item nav-link bg-primary text-white px-5 ms-3 d-none d-lg-block">Get A Call <i class="bi bi-arrow-right"></i></a>
+                    {% endif %}
                     
             </div>
         </nav>
@@ -495,112 +469,7 @@
     <!-- Portfolio End -->
 
 
-    <!-- Team Start -->
-    <div class="container-fluid py-6 px-5">
-        <div class="text-center mx-auto mb-5" style="max-width: 600px;">
-            <h1 class="display-5 text-uppercase mb-4">We Are <span class="text-primary">Professional & Expert</span> Workers</h1>
-        </div>
-        <div class="row g-5">
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="row g-0">
-                    <div class="col-10" style="min-height: 300px;">
-                        <div class="position-relative h-100">
-                            <img class="position-absolute w-100 h-100" src="{% static  'img/team-1.jpg' %}" style="object-fit: cover;">
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="h-100 d-flex flex-column align-items-center justify-content-between bg-light">
-                            <a class="btn" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-instagram"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="bg-light p-4">
-                            <h4 class="text-uppercase">Adam Phillips</h4>
-                            <span>CEO & Founder</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="row g-0">
-                    <div class="col-10" style="min-height: 300px;">
-                        <div class="position-relative h-100">
-                            <img class="position-absolute w-100 h-100" src="{% static  'img/team-2.jpg' %}" style="object-fit: cover;">
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="h-100 d-flex flex-column align-items-center justify-content-between bg-light">
-                            <a class="btn" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-instagram"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="bg-light p-4">
-                            <h4 class="text-uppercase">Dylan Adams</h4>
-                            <span>Civil Engineer</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="row g-0">
-                    <div class="col-10" style="min-height: 300px;">
-                        <div class="position-relative h-100">
-                            <img class="position-absolute w-100 h-100" src="{% static  'img/team-3.jpg' %}" style="object-fit: cover;">
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="h-100 d-flex flex-column align-items-center justify-content-between bg-light">
-                            <a class="btn" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-instagram"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="bg-light p-4">
-                            <h4 class="text-uppercase">Jhon Doe</h4>
-                            <span>Interior Designer</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="row g-0">
-                    <div class="col-10" style="min-height: 300px;">
-                        <div class="position-relative h-100">
-                            <img class="position-absolute w-100 h-100" src="{% static  'img/team-4.jpg' %}" style="object-fit: cover;">
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="h-100 d-flex flex-column align-items-center justify-content-between bg-light">
-                            <a class="btn" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-instagram"></i></a>
-                            <a class="btn" href="#"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="bg-light p-4">
-                            <h4 class="text-uppercase">Josh Dunn</h4>
-                            <span>Painter</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Team End -->
-
+   
 
     <!-- Testimonial Start -->
     <div class="container-fluid bg-light py-6 px-5">
