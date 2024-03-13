@@ -36,11 +36,3 @@ class Interior(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Status(models.Model):
-    details = models.TextField()
-    image = models.ImageField(upload_to='status_images/', null=True, blank=True)
-    
-    def __str__(self):
-        return self.details
