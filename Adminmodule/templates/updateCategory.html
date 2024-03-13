@@ -43,11 +43,7 @@
 <form method="post" action="{% url 'updateCategoryfun' item=i.id %}" enctype="multipart/form-data">
     {% csrf_token %}
     
-<<<<<<< HEAD
-    <input type="text" name="CategoryName" placeholder="Category"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.CategoryName}}">
-=======
     <input type="text" name="CategoryName" placeholder="Category"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.name}}">
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
     <input type="text" name="description" placeholder="description"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.description}}">
 
 <div class="form-group custom-input">

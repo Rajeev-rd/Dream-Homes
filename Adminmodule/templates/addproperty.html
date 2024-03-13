@@ -36,7 +36,7 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h3 font-weight-bold text-gray-900 mb-4">Add Property</h1>
+                                <h1 class="h3 font-weight-bold text-gray-900 mb-4 centered-container" style="background-color: #b3b1bb;width: 900px;">Add Property</h1>
                             </div>
                             
 
@@ -45,11 +45,7 @@
     {% csrf_token %}
     <select class="form-group custom-input" name="CategoryName" style="width: 700px;height:40px; border-radius: 50px;">
         {% for i in data %}
-<<<<<<< HEAD
-        <option>{{i.CategoryName}}</option>
-=======
         <option>{{i.name}}</option>
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
         {% endfor %}
 
     </select>

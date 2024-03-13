@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
-<<<<<<< HEAD
-from Adminmodule.models import Category,propertydb
-=======
-from Adminmodule.models import Category,Property
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
+from Adminmodule.models import Category,Property,InteriorCategory,Interior,Status
 from django.core.files.storage import FileSystemStorage
 from django.utils.datastructures import MultiValueDictKeyError
+from Usermodule.models import RegistrationDb
 
 # Create your views here.
 
@@ -23,11 +20,7 @@ def AddCategoryfun(request):
 
 
         IM = request.FILES["image"]
-<<<<<<< HEAD
-        obj = Category(CategoryName=CategoryName, description=description,image=IM)
-=======
         obj = Category(name=CategoryName, description=description,image=IM)
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
         obj.save()
     return redirect(AddCategory)
 
@@ -55,11 +48,7 @@ def updateCategoryfun(request, item):
         except MultiValueDictKeyError:
             file=Category.objects.get(id=item).image
 
-<<<<<<< HEAD
-        Category.objects.filter(id=item).update(CategoryName=CategoryName,description=description,image=file)
-=======
         Category.objects.filter(id=item).update(name=CategoryName,description=description,image=file)
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
     return redirect(showCategory)
 
 
@@ -86,13 +75,9 @@ def Addpropertyfun(request):
 
 
         IM = request.FILES["image"]
-<<<<<<< HEAD
-        obj = propertydb(CategoryName=CategoryName, name=name,price=price, description=description,floor=floor,sqft=sqft,image=IM)
-=======
         category_instance = Category.objects.get(name=CategoryName)
 
         obj = Property(category=category_instance, name=name, price=price, description=description, floor=floor, sqft=sqft, image=IM)
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
         obj.save()
     return redirect(AddCategory)
 
@@ -101,14 +86,6 @@ def Addpropertyfun(request):
 
 
 def showproperty(request):
-<<<<<<< HEAD
-    data=propertydb.objects.all()
-    return render(request, "showproperty.html",{"data":data})
-
-def updateProperty(request,dataid):
-    data=propertydb.objects.filter(id=dataid)
-    return render(request, "updateproperty.html",{"data":data})
-=======
     data=Property.objects.all()
     return render(request, "showproperty.html",{"data":data})
 
@@ -122,7 +99,7 @@ def updateProperty(request,dataid):
 
 def updatepropertyfun(request, item):
     if request.method=="POST":
-        CategoryName = request.POST.get("CategoryName")
+        name = request.POST.get("name")
         description = request.POST.get("description")
         price = request.POST.get("price")
         sqft = request.POST.get("sqft")
@@ -137,7 +114,7 @@ def updatepropertyfun(request, item):
         except MultiValueDictKeyError:
             file=Property.objects.get(id=item).image
 
-        Property.objects.filter(id=item).update(CategoryName=CategoryName,description=description,price=price,sqft=sqft,floor=floor,image=file)
+        Property.objects.filter(id=item).update(name=name,description=description,price=price,sqft=sqft,floor=floor,image=file)
     return redirect(showproperty)
 
 
@@ -147,26 +124,137 @@ def deleteproperty(request, dataid):
     data=Property.objects.filter(id=dataid)
     data.delete()
     return redirect(showproperty)
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
 
 def Addinteriorcategory(request):
     return render(request, "Addinteriorcategory.html")
 
-<<<<<<< HEAD
-=======
+
+def Addinterior(request):
+    return render(request, "Addinterior.html")
+
+
+
+
+
+
 
 def Addinteriourfun(request):
 
     if request.method == "POST":
-        CategoryName = request.POST.get("CategoryName")
+        name = request.POST.get("name")
         description = request.POST.get("description")
 
 
         IM = request.FILES["image"]
-        obj = Category(name=CategoryName, description=description,image=IM)
+        obj = InteriorCategory(name=name, description=description,image=IM)
         obj.save()
-    return redirect(AddCategory)
+    return redirect(Addinteriorcategory)
 
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
+
+def showinteriorcategory(request):
+    data=InteriorCategory.objects.all()
+    return render(request, "showinteriorcategory.html",{"data":data})
+
+def updateinteriorcategory(request,dataid):
+    data=InteriorCategory.objects.filter(id=dataid)
+    return render(request, "updateinteriourcategory.html",{"data":data})
+
+
+def updateinteriorcategoryfun(request, item):
+    if request.method=="POST":
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+        
+
+        try:
+            IM=request.FILES['image']
+            FS=FileSystemStorage()
+            file=FS.save(IM.name,IM)
+
+        except MultiValueDictKeyError:
+            file=InteriorCategory.objects.get(id=item).image
+
+        InteriorCategory.objects.filter(id=item).update(name=name,description=description,image=file)
+    return redirect(showinteriorcategory)
+
+
+
+def deleteinteriorcategory(request, dataid):
+    data=InteriorCategory.objects.filter(id=dataid)
+    data.delete()
+    return redirect(showinteriorcategory)
+
+def Addinteriourfun2(request):
+
+    if request.method == "POST":
+        category = request.POST.get("category")
+        description = request.POST.get("description")
+        price = request.POST.get("price")
+
+        IM = request.FILES["image"]
+        category_instance = InteriorCategory.objects.get(name=category)
+        obj = Interior(category=category_instance, description=description,price=price,image=IM)
+        obj.save()
+    return redirect(Addinterior)
+
 def Addinterior(request):
-    return render(request, "Addinterior.html")
+    data=InteriorCategory.objects.all()
+    return render(request, "Addinterior.html",{"data":data})
+
+
+def showinterior(request):
+    data=Interior.objects.all()
+    return render(request, "showinterior.html",{"data":data})
+
+
+def updateinterior(request,dataid):
+    data=Interior.objects.filter(id=dataid)
+    datas=InteriorCategory.objects.all()
+    return render(request, "updateinterior.html",{"data":data,"datas":datas})
+
+
+def updateinteriorfun(request, item):
+    if request.method=="POST":
+        price = request.POST.get("price")
+        description = request.POST.get("description")
+        
+
+        try:
+            IM=request.FILES['image']
+            FS=FileSystemStorage()
+            file=FS.save(IM.name,IM)
+
+        except MultiValueDictKeyError:
+            file=Interior.objects.get(id=item).image
+
+        Interior.objects.filter(id=item).update(description=description,price=price,image=file)
+    return redirect(showinterior)
+
+
+def deleteinterior(request, dataid):
+    data=Interior.objects.filter(id=dataid)
+    data.delete()
+    return redirect(showinterior)
+
+
+def showmembers(request):
+    data=RegistrationDb.objects.all()
+    return render(request, "showmembers.html",{"data":data})
+
+
+
+def AddStatus(request):
+    return render(request, "AddStatus.html")
+
+
+
+
+def AddStatusFun(request):
+
+    if request.method == "POST":
+        details = request.POST.get("details")
+
+        IM = request.FILES["image"]
+        obj = Status(details=details,image=IM)
+        obj.save()
+    return redirect(Addinterior)

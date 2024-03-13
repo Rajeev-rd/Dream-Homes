@@ -16,9 +16,21 @@ urlpatterns = [
     path('Addpropertyfun/', views.Addpropertyfun, name="Addpropertyfun"),
     path('showproperty/', views.showproperty, name="showproperty"),
     path('updateProperty/<int:dataid>', views.updateProperty, name="updateProperty"),
-<<<<<<< HEAD
-=======
     path('updatepropertyfun/<item>', views.updatepropertyfun, name="updatepropertyfun"),    
     path('deleteproperty/<dataid>', views.deleteproperty, name="deleteproperty"),
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
+    path('Addinteriourfun', views.Addinteriourfun, name="Addinteriourfun"),
+    path('Addinteriourfun2', views.Addinteriourfun2, name="Addinteriourfun2"),
+    path('showinteriorcategory', views.showinteriorcategory, name="showinteriorcategory"),
+    path('updateinteriorcategory/<dataid>', views.updateinteriorcategory, name="updateinteriorcategory"),
+    path('updateinteriorcategoryfun/<item>', views.updateinteriorcategoryfun, name="updateinteriorcategoryfun"),  
+    path('deleteinteriorcategory/<dataid>', views.deleteinteriorcategory, name="deleteinteriorcategory"),
+    path('showinterior', views.showinterior, name="showinterior"),
+    path('updateinterior/<dataid>', views.updateinterior, name="updateinterior"),
+    path('updateinteriorfun/<item>', views.updateinteriorfun, name="updateinteriorfun"),
+    path('deleteinterior/<dataid>', views.deleteinterior, name="deleteinterior"),
+    path('showmembers', views.showmembers, name="showmembers"),
+    path('AddStatus/', views.AddStatus, name="AddStatus"),
+    path('AddStatusFun/', views.AddStatusFun, name="AddStatusFun"),
+
+
     ]
