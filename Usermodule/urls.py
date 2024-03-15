@@ -12,7 +12,9 @@ urlpatterns = [
     path('projects',views.projects,name="projects"),
     path('contact',views.contact,name="contact"),
     path('login',views.SignInView.as_view(),name="login"),
-    path('logout',views.signout_view,name="logout")
+    path('logout',views.signout_view,name="logout"),
+
+    path('submit/', views.submit_request, name='submit_request'),
     
 
 ]
