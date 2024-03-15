@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.models import User
 from .forms import RegistrationForm, LoginForm
 from django.views.generic import View, FormView
+from .forms import AppointmentRequestForm
 # Create your views here.
 
 # function for signup
@@ -71,3 +72,22 @@ def projects(request):
 #function for contact page
 def contact(request):
     return render(request,"contact.html")
+
+#function to send the request to message
+def submit_request(request):
+    if request.method == 'POST':
+        form = AppointmentRequestForm(request.POST)
+        if form.is_valid():
+            # Create a new AppointmentRequest object but don't save it yet
+            appointment_request = form.save(commit=False)
+            # Optionally, you can modify or add more data to the appointment_request object here
+            
+            # Now save the form data to the database
+            appointment_request.save()
+            
+            # Redirect to a success page
+            return redirect('indexfront')
+    else:
+        form = AppointmentRequestForm()
+    
+    return render(request, 'frontendindexpage.html', {'form': form})
