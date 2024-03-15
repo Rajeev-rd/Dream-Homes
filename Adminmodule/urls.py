@@ -18,4 +18,18 @@ urlpatterns = [
     path('updateProperty/<int:dataid>', views.updateProperty, name="updateProperty"),
     path('updatepropertyfun/<item>', views.updatepropertyfun, name="updatepropertyfun"),    
     path('deleteproperty/<dataid>', views.deleteproperty, name="deleteproperty"),
+    path('AddStatus', views.AddStatus, name="AddStatus"),
+    path('AddStatusFun', views.AddStatusFun, name="AddStatusFun"),
+    path('showinteriorcategory', views.showinteriorcategory, name="showinteriorcategory"),
+    path('showinterior', views.showinterior, name="showinterior"),
+    path('updateinterior/<dataid>', views.updateinterior, name="updateinterior"),
+    path('Addinteriourfun', views.Addinteriourfun, name="Addinteriourfun"),
+    path('Addinteriourfun2', views.Addinteriourfun2, name="Addinteriourfun2"),
+    path('updateinteriorcategory/<int:dataid>', views.updateinteriorcategory, name="updateinteriorcategory"),
+    path('updateinteriorcategory/<int:dataid>', views.updateinteriorcategory, name="updateinteriorcategory"),
+    path('deleteinterior/<int:dataid>', views.deleteinterior, name="deleteinterior"),
+    path('updateinteriorfun1/<item>', views.updateinteriorfun1, name="updateinteriorfun1"),
+    path('updateinteriorfun/<item>', views.updateinteriorfun, name="updateinteriorfun"),
+    path('MessageTable/', views.MessageTable, name="MessageTable"),
+
     ]

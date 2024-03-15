@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from Adminmodule.models import Category,Property
+from Adminmodule.models import Category,Property,InteriorCategory,Interior,Status,Contact
 from django.core.files.storage import FileSystemStorage
 from django.utils.datastructures import MultiValueDictKeyError
+
 
 # Create your views here.
 
@@ -98,7 +99,7 @@ def updateProperty(request,dataid):
 
 def updatepropertyfun(request, item):
     if request.method=="POST":
-        CategoryName = request.POST.get("CategoryName")
+        name = request.POST.get("name")
         description = request.POST.get("description")
         price = request.POST.get("price")
         sqft = request.POST.get("sqft")
@@ -113,7 +114,7 @@ def updatepropertyfun(request, item):
         except MultiValueDictKeyError:
             file=Property.objects.get(id=item).image
 
-        Property.objects.filter(id=item).update(CategoryName=CategoryName,description=description,price=price,sqft=sqft,floor=floor,image=file)
+        Property.objects.filter(id=item).update(name=name,description=description,price=price,sqft=sqft,floor=floor,image=file)
     return redirect(showproperty)
 
 
@@ -131,14 +132,147 @@ def Addinteriorcategory(request):
 def Addinteriourfun(request):
 
     if request.method == "POST":
-        name = request.POST.get("CategoryName")
+        name = request.POST.get("name")
         description = request.POST.get("description")
 
 
         IM = request.FILES["image"]
-        obj = Category(name=CategoryName, description=description,image=IM)
+        obj = InteriorCategory(name=name, description=description,image=IM)
         obj.save()
     return redirect(AddCategory)
 
 def Addinterior(request):
-    return render(request, "Addinterior.html")
+    data=InteriorCategory.objects.all()
+    return render(request, "Addinterior.html",{"data":data})
+
+
+def showinteriorcategory(request):
+    data=InteriorCategory.objects.all()
+    return render(request, "showinteriorcategory.html",{"data":data})
+
+def Addinteriourfun2(request):
+
+    if request.method == "POST":
+        category= request.POST.get("category")
+        description = request.POST.get("description")
+        price = request.POST.get("price")
+
+
+        IM = request.FILES["image"]
+        category_instance = InteriorCategory.objects.get(name=category)
+        obj = Interior(category=category_instance,description=description,price=price,image=IM)
+        obj.save()
+    return redirect(Addinterior)
+
+
+
+def showinterior(request):
+    data=Interior.objects.all()
+    return render(request, "showinterior.html",{"data":data})
+
+
+def updateinteriorcategory(request,dataid):
+    data=InteriorCategory.objects.filter(id=dataid)
+    return render(request, "updateinteriorcategory.html",{"data":data})
+
+def updateinteriorfun1(request, item):
+    if request.method=="POST":
+        name= request.POST.get("name")
+        description = request.POST.get("description")
+        
+
+        try:
+            IM=request.FILES['image']
+            FS=FileSystemStorage()
+            file=FS.save(IM.name,IM)
+
+        except MultiValueDictKeyError:
+            file=InteriorCategory.objects.get(id=item).image
+
+        InteriorCategory.objects.filter(id=item).update(name=name,description=description,image=file)
+    return redirect(showinteriorcategory)
+
+def deleteinteriorcategory(request, dataid):
+    data=InteriorCategory.objects.filter(id=dataid)
+    data.delete()
+    return redirect(showinteriorcategory)
+
+
+
+
+def updateinterior(request,dataid):
+    data=Interior.objects.filter(id=dataid)
+    datas=InteriorCategory.objects.all()
+    return render(request, "updateinterior.html",{"data":data,"datas":datas})
+
+
+def updateinteriorfun(request, item):
+    if request.method=="POST":
+        price = request.POST.get("price")
+        description = request.POST.get("description")
+        
+
+        try:
+            IM=request.FILES['image']
+            FS=FileSystemStorage()
+            file=FS.save(IM.name,IM)
+
+        except MultiValueDictKeyError:
+            file=Interior.objects.get(id=item).image
+
+        Interior.objects.filter(id=item).update(description=description,price=price,image=file)
+    return redirect(showinterior)
+
+
+def deleteinterior(request, dataid):
+    data=Interior.objects.filter(id=dataid)
+    data.delete()
+    return redirect(showinterior)
+
+
+def showmembers(request):
+    return render(request, "showmembers.html")
+
+
+
+def AddStatus(request):
+    return render(request, "AddStatus.html")
+
+
+
+
+def AddStatusFun(request):
+
+    if request.method == "POST":
+        details = request.POST.get("details")
+
+        IM = request.FILES["image"]
+        obj = Status(details=details,image=IM)
+        obj.save()
+    return redirect(Addinterior)
+
+
+
+def MessageTable(request):
+    return render(request, "messagestable.html")
+
+
+def Message(request):
+    
+    return render(request, "messagestable.html")
+
+
+
+def message(request):
+
+    if request.method == "POST":
+        username= request.POST.get("username")
+        email = request.POST.get("email")
+        location = request.POST.get("location")
+        message = request.POST.get("message")
+
+
+        
+        obj = Contact(username=username,email=email,location=location,message=message)
+        obj.save()
+    return redirect(Addinterior)

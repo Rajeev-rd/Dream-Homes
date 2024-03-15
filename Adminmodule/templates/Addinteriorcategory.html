@@ -26,7 +26,7 @@
 
 <body class="bg-gradient-primary">
 
-    <div class="container">
+    <div class="container" style="margin-bottom: 100px;">
 
         <div class="card o-hidden border-0 shadow-lg my-5" style="border-radius: 50px;" >
             <div class="card-body p-0">
@@ -36,34 +36,31 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h3 font-weight-bold text-gray-900 mb-4">Add Property</h1>
+                                <h1 class="h3 font-weight-bold text-gray-900 mb-4 centered-container" style="background-color: #b3b1bb;width: 900px;">Add Interior Category</h1>
                             </div>
                             
 
 
-<form class="user">
-    <select class="form-group custom-input" name="CategoryName" style="width: 700px;height:40px; border-radius: 50px;">
-        <option>CategoryName</option>
+<form class="user" method="post" action="{% url 'Addinteriourfun' %}" enctype="multipart/form-data" >
 
-    </select>
+    {% csrf_token %}
 
-
-<input type="text" name="roomname" placeholder="Room Name"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">
+<input type="text" name="name" placeholder="Room Name"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" >
 <input type="text" name="description" placeholder="description"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">
 
 
 <div class="form-group">
     <div class="input-group">
         <div class="custom-file" style="width: 900px; border-radius: 50px;">
-            <input type="file" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon">
+            <input name="image" type="file" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon">
             <label class="custom-file-label" for="customFile">No file chosen</label>
         </div>
     </div>
 </div>
 
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
-                                    Add
-                                </a>
+<button type="submit" class="btn btn-primary btn-user btn-block">
+    Add
+<button>
                                 <hr>
                             </form>
                             <hr>
@@ -108,7 +105,10 @@
     
 }
 
-    </style>
+    </style>    
+    <br>
+    <br>
+    <br>
 {% endblock %}
 </body>
 
