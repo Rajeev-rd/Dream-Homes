@@ -39,28 +39,13 @@
                                 <h1 class="h3 font-weight-bold text-gray-900 mb-4">Update Property</h1>
                             </div>
                             
-<<<<<<< HEAD
-
-
-<form method="post" action="{% url 'Addpropertyfun' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    <select class="form-group custom-input" name="CategoryName" style="width: 700px;height:40px; border-radius: 50px;">
-        {% for i in data %}
-        <option>{{i.CategoryName}}</option>
-        {% endfor %}
-
-    </select>
-
-    {% for i in data %}
-<input type="text" name="name" placeholder="Name"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.CategoryName}}">
-=======
                             {% for i in data %}
 
 <form method="post" action="{% url 'updatepropertyfun' item=i.id %}" enctype="multipart/form-data">
     {% csrf_token %}
     <select class="form-group custom-input" name="CategoryName" style="width: 700px;height:40px; border-radius: 50px;">
         {% for i in datas %}
-        <option>{{i.CategoryName}}</option>
+        <option>{{i.name}}</option>
         {% endfor %}
 
 
@@ -68,7 +53,6 @@
 
 
 <input type="text" name="name" placeholder="Name"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.name}}">
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
 <input type="text" name="description" placeholder="description"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.description}}">
 <input type="text" name="price" placeholder="price"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.price}}">
 <input type="text" name="sqft" placeholder="sqft"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.sqft}}">
@@ -77,30 +61,18 @@
 <div class="form-group">
     <div class="input-group">
         <div class="custom-file" style="width: 900px; border-radius: 50px;">
-<<<<<<< HEAD
-            <input type="file" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon" name="image">
-=======
             <input type="file" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon" name="image" value="{{i.image}}">
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
             <label class="custom-file-label" for="customFile">No file chosen</label>
         </div>
     </div>
 </div>
-<<<<<<< HEAD
-{% endfor %}
-=======
-
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
 
                                 <button class="btn btn-primary btn-user btn-block">
                                     Add
                                 </button>
                                 <hr>
                             </form>
-<<<<<<< HEAD
-=======
                             {% endfor %}
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
                             <hr>
 
                         </div>

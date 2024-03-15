@@ -28,9 +28,9 @@
 
     <div class="container">
 
-        <div class="card shadow mb-4">
+        <div class="card shadow mb-4" style="border-radius: 20px;">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                <h6 class="h5 font-weight-bold text-gray-900 mb-4 centered-container" style="margin-left:60px;background-color: #b3b1bb;width: 900px;height: 60px;">Show Property Table</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -38,59 +38,37 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-<<<<<<< HEAD
-                                <th>CategoryName</th>
-=======
                                 <th>Category</th>
                                 <th>Name</th>
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
                                 <th>description</th>
                                 <th>price</th>
                                 <th>SQFT</th>
                                 <th>Floor</th>
                                 <th>image</th>
-<<<<<<< HEAD
-                                <th>Start date</th>
-                                <th>Salary</th>
-=======
                                 <th>Update</th>
                                 <th>Delete</th>
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>ID</th>
-<<<<<<< HEAD
-                                <th>CategoryName</th>
-=======
                                 <th>Category</th>
                                 <th>Name</th>
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
                                 <th>description</th>
                                 <th>price</th>
                                 <th>SQFT</th>
                                 <th>Floor</th>
                                 <th>image</th>
-<<<<<<< HEAD
-                                <th>Start date</th>
-                                <th>Salary</th>
-=======
                                 <th>Update</th>
                                 <th>Delete</th>
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
                             </tr>
                         </tfoot>
                         {% for i in data %}
                         <tbody>
                             <tr>
                                 <td>{{i.id}}</td>
-<<<<<<< HEAD
-                                <td>{{i.CategoryName}}</td>
-=======
                                 <td>{{i.category}}</td>
                                 <td>{{i.name}}</td>
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
                                 <td>{{i.description}}</td>
                                 <td>{{i.price}}</td>
                                 <td>{{i.sqft}}</td>
@@ -101,19 +79,11 @@
                                     Update
                                 <button></td>
                                 </form>
-<<<<<<< HEAD
-                                <form action="{% url 'deletecategory' dataid=i.id %}" method="get" enctype="multipart/form-data">
-                                <td><button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Delete
-                                <button></td>
-                                    </form>
-=======
                                 <form action="{% url 'deleteproperty' dataid=i.id %}" method="get" enctype="multipart/form-data">
                                 <td><button type="submit" class="btn btn-primary btn-user btn-block">
                                     Delete
                                 <button></td>
                                 </form>
->>>>>>> 06b450213a5a4dae9f418256f73b0b519b776c3c
                             </tr>
          
                         </tbody>
