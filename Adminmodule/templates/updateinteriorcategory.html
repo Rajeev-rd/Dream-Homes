@@ -36,11 +36,11 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h3 font-weight-bold text-gray-900 mb-4">Add Category</h1>
+                                <h1 class="h3 font-weight-bold text-gray-900 mb-4">Update</h1>
                             </div>
 
                             {% for i in data %}
-<form method="post" action="{% url 'updateinteriorcategoryfun' item=i.id %}" enctype="multipart/form-data">
+<form method="post" action="{% url 'updateinteriorfun1' item=i.id %}" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="text" name="name" placeholder="Category"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.name}}">
     <input type="text" name="description" placeholder="description"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.description}}">

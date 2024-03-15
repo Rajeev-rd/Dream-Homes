@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from Adminmodule.models import Category,Property,InteriorCategory,Interior,Status
+from Adminmodule.models import Category,Property,InteriorCategory,Interior,Status,Contact
 from django.core.files.storage import FileSystemStorage
 from django.utils.datastructures import MultiValueDictKeyError
-from Usermodule.models import RegistrationDb
+
 
 # Create your views here.
 
@@ -146,9 +146,58 @@ def Addinterior(request):
     return render(request, "Addinterior.html",{"data":data})
 
 
+def showinteriorcategory(request):
+    data=InteriorCategory.objects.all()
+    return render(request, "showinteriorcategory.html",{"data":data})
+
+def Addinteriourfun2(request):
+
+    if request.method == "POST":
+        category= request.POST.get("category")
+        description = request.POST.get("description")
+        price = request.POST.get("price")
+
+
+        IM = request.FILES["image"]
+        category_instance = InteriorCategory.objects.get(name=category)
+        obj = Interior(category=category_instance,description=description,price=price,image=IM)
+        obj.save()
+    return redirect(Addinterior)
+
+
+
 def showinterior(request):
     data=Interior.objects.all()
     return render(request, "showinterior.html",{"data":data})
+
+
+def updateinteriorcategory(request,dataid):
+    data=InteriorCategory.objects.filter(id=dataid)
+    return render(request, "updateinteriorcategory.html",{"data":data})
+
+def updateinteriorfun1(request, item):
+    if request.method=="POST":
+        name= request.POST.get("name")
+        description = request.POST.get("description")
+        
+
+        try:
+            IM=request.FILES['image']
+            FS=FileSystemStorage()
+            file=FS.save(IM.name,IM)
+
+        except MultiValueDictKeyError:
+            file=InteriorCategory.objects.get(id=item).image
+
+        InteriorCategory.objects.filter(id=item).update(name=name,description=description,image=file)
+    return redirect(showinteriorcategory)
+
+def deleteinteriorcategory(request, dataid):
+    data=InteriorCategory.objects.filter(id=dataid)
+    data.delete()
+    return redirect(showinteriorcategory)
+
+
 
 
 def updateinterior(request,dataid):
@@ -182,8 +231,7 @@ def deleteinterior(request, dataid):
 
 
 def showmembers(request):
-    data=RegistrationDb.objects.all()
-    return render(request, "showmembers.html",{"data":data})
+    return render(request, "showmembers.html")
 
 
 
@@ -200,5 +248,31 @@ def AddStatusFun(request):
 
         IM = request.FILES["image"]
         obj = Status(details=details,image=IM)
+        obj.save()
+    return redirect(Addinterior)
+
+
+
+def MessageTable(request):
+    return render(request, "messagestable.html")
+
+
+def Message(request):
+    
+    return render(request, "messagestable.html")
+
+
+
+def message(request):
+
+    if request.method == "POST":
+        username= request.POST.get("username")
+        email = request.POST.get("email")
+        location = request.POST.get("location")
+        message = request.POST.get("message")
+
+
+        
+        obj = Contact(username=username,email=email,location=location,message=message)
         obj.save()
     return redirect(Addinterior)

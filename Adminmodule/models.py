@@ -36,3 +36,22 @@ class Interior(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+class Status(models.Model):
+    details = models.TextField()
+    image = models.ImageField(upload_to='interior_images/', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+    
+
+class Contact(models.Model):
+    username = models.TextField( null=True)
+    email = models.EmailField( null=True)
+    message = models.TextField( null=True)
+    location = models.TextField( null=True)
+
+    def __str__(self):
+        return self.username
