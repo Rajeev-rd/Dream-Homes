@@ -78,7 +78,7 @@
         <form action="" method="post">
           {%csrf_token%}
           {{form.as_p}}
-          <!-- <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button> -->
+          <button class="btn btn-warning" type="submit">Login</button>
       </form>
       <div class="d-flex justify-content-around align-items-center mb-4">
         <!-- Checkbox -->
@@ -89,10 +89,6 @@
         <a href="#!">Forgot password?</a>
       </div>
 
-      <!-- Submit button -->
-      <a>
-      <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
-    </a>
       <div class="divider d-flex align-items-center my-4">
         <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
       </div>
@@ -104,6 +100,9 @@
       <a class="btn btn-primary btn-lg btn-block" style="background-color: #55acee" href="#!" role="button">
         <i class="fab fa-google me-2"></i>Continue with Google
     </a>
+    <div>
+      <p>Dont have an account: <a href="{% url 'signup' %}">Create an account</a></p>
+    </div>
       </div>
     </div>
   </div>

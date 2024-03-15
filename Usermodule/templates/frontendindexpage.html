@@ -15,6 +15,8 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
@@ -33,6 +35,44 @@
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
+<style>
+    /* Define custom styles for form fields */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .form-textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+    }
+
+    .form-button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+
 
 <body>
     <!-- Topbar Start -->
@@ -135,7 +175,7 @@
                         
                     </div>
                     <!-- codition to hide from non login -->
-                    {% if request.session.username %}
+                    {% if user.is_authenticated %}
                     <a href="{% url 'contact' %}" class="nav-item nav-link bg-primary text-white px-5 ms-3 d-none d-lg-block">Get A Call <i class="bi bi-arrow-right"></i></a>
                     {% else %}
                     <a href="{% url 'login' %}" class="nav-item nav-link bg-primary text-white px-5 ms-3 d-none d-lg-block">Get A Call <i class="bi bi-arrow-right"></i></a>
@@ -320,33 +360,21 @@
             </div>
             <div class="col-lg-8">
                 <div class="bg-light text-center p-5">
-                    <form>
+                    <form method="post" action="{% url 'submit_request' %}">
+                        {% csrf_token %}
                         <div class="row g-3">
                             <div class="col-12 col-sm-6">
-                                <input type="text" class="form-control border-0" placeholder="Your Name" style="height: 55px;">
+                                <input type="text" class="form-control border-0" name="name" placeholder="Your name" style="height: 55px;" value="{{ user }}">
                             </div>
                             <div class="col-12 col-sm-6">
-                                <input type="email" class="form-control border-0" placeholder="Your Email" style="height: 55px;">
+                                <input type="email" class="form-control border-0" name="email" placeholder="Your Email" style="height: 55px;" value="{{ user.email }}">
                             </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="date" id="date" data-target-input="nearest">
-                                    <input type="text"
-                                        class="form-control border-0 datetimepicker-input"
-                                        placeholder="Call Back Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;">
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="time" id="time" data-target-input="nearest">
-                                    <input type="text"
-                                        class="form-control border-0 datetimepicker-input"
-                                        placeholder="Call Back Time" data-target="#time" data-toggle="datetimepicker" style="height: 55px;">
-                                </div>
-                            </div>
+                          
                             <div class="col-12">
-                                <textarea class="form-control border-0" rows="5" placeholder="Message"></textarea>
+                                <textarea class="form-control border-0" rows="5" name="message" placeholder="Message"></textarea>
                             </div>
                             <div>
-                                <input type="text" placeholder="location" class="form-control border-0" >
+                                <input type="text" placeholder="location" name="location"   class="form-control border-0" >
                             </div>
                             <div class="col-12">
                                 <button class="btn btn-primary w-100 py-3" type="submit">Submit Request</button>
