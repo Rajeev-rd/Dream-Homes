@@ -28,7 +28,7 @@
 
     <div class="container">
 
-        <div class="card o-hidden border-0 shadow-lg my-5" style="border-radius: 50px;" >
+        <div class="card o-hidden border-0 shadow-lg my-5" style="border-radius: 50px;">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
@@ -36,38 +36,40 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h3 font-weight-bold text-gray-900 mb-4 centered-container" style="background-color: #b3b1bb;width: 900px;">Add Interior</h1>
+                                <h1 class="h3 font-weight-bold text-gray-900 mb-4 centered-container" style="background-color: #b3b1bb;width: 900px;">Update Renovation</h1>
                             </div>
-                            
+
+                            {% for i in data %}
+<form method="post" action="{% url 'updateRenovationfun' item=i.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <select class="form-group custom-input" name="name" style="width: 700px;height:40px; border-radius: 50px;">
+        {% for i in data %}
+        <option value="{{i.name}}">{{i.name}}</option>
+        {% endfor %}
+        
 
 
-                            <form method="post" action="{% url 'Addinteriourfun2' %}" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                
-                                <select class="form-group custom-input" name="category" style="width: 700px;height:40px; border-radius: 50px;">
-                                    {% for i in data %}
-                                    <option>{{i.name}}</option>
-                                    {% endfor %}
-                                </select>
-                            
-                                <input type="text" name="description" placeholder="Description" style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">
-                                <input type="text" name="price" placeholder="Price" style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">
-                            
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="custom-file" style="width: 900px; border-radius: 50px;">
-                                            <input type="file" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon" name="image">
-                                            <label class="custom-file-label" for="customFile">No file chosen</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            
+    </select>
+    <input type="text" name="description" placeholder="description"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.description}}">
+    <input type="text" name="price" placeholder="Price"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input" value="{{i.price}}">
+<div class="form-group custom-input">
+    <div class="input-group">
+        <div class="custom-file" style="width: 900px; border-radius: 50px;">
+            <input type="file" name="image" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon" value="{{i.image.url}}">
+            <label class="custom-file-label" for="customFile">No file chosen</label>
+        </div>
+    </div>
+</div>
+
+<br>
+
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Add
-                                </button>
+                                    Update
+                                <button>
+                                
                             </form>
+                            {% endfor %}
                             
-                            <hr>
 
 
                         </div>
@@ -110,9 +112,6 @@
 }
 
     </style>
-    <br>
-    <br>
-    <br>
 {% endblock %}
 </body>
 

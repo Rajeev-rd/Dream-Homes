@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('Usermodule', '0003_appointmentrequest_delete_contactbd_and_more'),
-        ('Usermodule', '0003_delete_registrationdb'),
+        
     ]
 
     operations = [

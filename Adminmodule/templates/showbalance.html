@@ -30,53 +30,56 @@
 
         <div class="card shadow mb-4" style="border-radius: 20px;">
             <div class="card-header py-3">
-                <h6 class="h5 font-weight-bold text-gray-900 mb-4 centered-container" style="margin-left:60px;background-color: #b3b1bb;width: 900px;height: 60px;">Menbers Enquiry  </h6>
+                <h6 class="h5 font-weight-bold text-gray-900 mb-4 centered-container" style="margin-left:60px;background-color: #b3b1bb;width: 900px;height: 60px;">Show Balance Items Table</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Location</th>
-                                <th>Message</th>
-                                <th>Date</th>
-                                <th>Reply</th>
-                                
+                                <th>ID</th>
+                                <th>Category</th>
+                                <th>description</th>
+                                <th>Price</th>
+                                <th>image</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Location</th>
-                                <th>Message</th>
-                                <th>Date</th>
-                                <th>Reply</th>
-                                
+                                <th>ID</th>
+                                <th>Category</th>
+                                <th>description</th>
+                                <th>Price</th>
+                                <th>image</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                             </tr>
                         </tfoot>
-                     
+                        {% for i in data %}
                         <tbody>
                             <tr>
-                                <td>{{i.name}}Nived</td>
-                                <td>{{i.email}}Nived@gmail.com</td>
-                                <td>{{i.location}}Kannur</td>
-                                <td>{{i.message}}Hellocreated_at</td>
-                                <td>{{i.created_at}}</td>
+                                <td>{{i.id}}</td>
+                                <td>{{i.name}}</td>
+                                <td>{{i.description}}</td>
+                                <td>{{i.price}}</td>
                                 
-                                
-                                <form action="{% url 'showmessage' %}" method="get" enctype="multipart/form-data">
+                                <td><img src="{{i.image.url}}" width="50px" height="=30px"></td>
+                                <form action="{% url 'updateBalance' dataid=i.id %}" method="get" enctype="multipart/form-data">
                                 <td><button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Reply
+                                    Update
                                 <button></td>
                                 </form>
-
+                                <form action="{% url 'deleteBalance' dataid=i.id %}" method="get" enctype="multipart/form-data">
+                                <td><button type="submit" class="btn btn-primary btn-user btn-block">
+                                    Delete
+                                <button></td>
+                                    </form>
                             </tr>
          
                         </tbody>
-                        
+                        {% endfor %}
                     </table>
                 </div>
             </div>
