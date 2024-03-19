@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import AppointmentRequest
+from .models import AppointmentRequest,Testimonial
 
 class RegistrationForm(UserCreationForm):
    password1=forms.CharField(widget=forms.PasswordInput(attrs={"class":"form-control"}))
@@ -15,7 +15,6 @@ class RegistrationForm(UserCreationForm):
     widgets = {
     'username': forms.TextInput(attrs={'class': 'form-control '}),
     'email': forms.EmailInput(attrs={'class': 'form-control'}),
-    'last_name': forms.TextInput(attrs={'class': 'form-control'}),
   
     
 } 
@@ -29,3 +28,8 @@ class AppointmentRequestForm(forms.ModelForm):
     class Meta:
         model = AppointmentRequest
         fields = ['name', 'email', 'message', 'location']
+
+class TestimonialForm(forms.ModelForm):
+    class Meta:
+        model = Testimonial
+        fields = ['content']

@@ -1,0 +1,32 @@
+<!-- status_update.html -->
+
+<!DOCTYPE html>
+{% extends 'frontendindexpage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Update</title>
+    <style>
+        .container {
+            width: 50%;
+            margin: auto;
+            text-align: center;
+        }
+        img {
+            width: 100px; /* Adjust the width of the image as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Latest Update</h2>
+        <img src="#" alt="Image">
+        <p>Description: This is the latest update description.</p>
+    </div>
+</body>
+</html>
+{% endblock %}
