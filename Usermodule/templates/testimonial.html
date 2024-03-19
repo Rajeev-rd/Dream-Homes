@@ -10,7 +10,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+    <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -31,6 +31,57 @@
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
+<style>
+    .testimonial-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-form label {
+    font-weight: bold;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.card-text {
+    color: #666;
+}
+
+.text-muted {
+    color: #999;
+}
+.testimonial-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.testimonial-form .form-label {
+    font-weight: bold;
+}
+
+.testimonial-form textarea {
+    resize: none;
+}
+
+.testimonial-form button {
+    margin-top: 10px;
+}
+
+
+</style>
 
 <body>
     <!-- Topbar Start -->
@@ -59,7 +110,7 @@
                     <i class="bi bi-phone-vibrate fs-1 text-primary me-3"></i>
                     <div class="text-start">
                         <h6 class="text-uppercase fw-bold">Call Us</h6>
-                        <span>+91 857496123</span>
+                        <span>+012 345 6789</span>
                     </div>
                 </div>
             </div>
@@ -82,7 +133,15 @@
                     <a href="{% url 'indexfront' %}" class="nav-item nav-link">Home</a>
                     <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
                     <a href="{% url 'service' %}" class="nav-item nav-link">Service</a>
-                                   </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="{% url 'projects' %}" class="dropdown-item">Our Project</a>
+                            <a href="{% url 'testimonial' %}" class="dropdown-item">Testimonial</a>
+                        </div>
+                    </div>
+                    <a href="{% url 'contact' %}" class="nav-item nav-link bg-primary text-white px-5 ms-3 d-none d-lg-block">Get A Call <i class="bi bi-arrow-right"></i></a>
+                </div>
             </div>
         </nav>
     </div>
@@ -91,65 +150,53 @@
 
     <!-- Page Header Start -->
     <div class="container-fluid page-header">
-        <h1 class="display-3 text-uppercase text-white mb-3">Contact</h1>
+        <h1 class="display-3 text-uppercase text-white mb-3">Testimonial</h1>
         <div class="d-inline-flex text-white">
             <h6 class="text-uppercase m-0"><a href="{% url 'indexfront' %}">Home</a></h6>
             <h6 class="text-white m-0 px-3">/</h6>
-            <h6 class="text-uppercase text-white m-0">Contact</h6>
+            <h6 class="text-uppercase text-white m-0">Testimonial</h6>
         </div>
     </div>
     <!-- Page Header Start -->
 
 
-    <!-- Contact Start -->
-    <div class="container-fluid py-6 px-5" style="text-align: center;">
-        <div class="text-center mx-auto mb-5" style="max-width: 600px;">
-            <h1 class="display-5 text-uppercase mb-4">Please <span class="text-primary">Feel Free</span> To Contact Us</h1>
-        </div>
-        <div class="row gx-0 align-items-center">
-            <div class="col-lg-6 mb-5 mb-lg-0" style="height: 600px;">
-                <iframe class="w-100 h-100"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
-                    frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+<!-- Form to add testimonial -->
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-6">
+        <form method="post" action="{% url 'add_testimonial' %}" class="testimonial-form">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="testimonialContent" class="form-label">Your Testimonial</label>
+                <textarea name="content" id="testimonialContent" class="form-control" rows="5" placeholder="Write your testimonial here..." required></textarea>
             </div>
-            <div class="col-lg-6" style="text-align: center;">
-                <div class="contact-form bg-light p-5">
-                    <form method="post" action="{% url 'submit_request' %}">
-                        {% csrf_token %}
-                        <div class="row g-3">
-                            <div class="col-12 col-sm-6">
-                                <input type="text" class="form-control border-0" name="name" placeholder="Your name" style="height: 55px;" value="{{ user }}">
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <input type="email" class="form-control border-0" name="email" placeholder="Your Email" style="height: 55px;" value="{{ user.email }}">
-                            </div>
-<<<<<<< HEAD
-=======
-                            <div>
-                                <select class="form-control border-0">
-                                    <option>Select the service</option>
-                                    <option></option>
-                                </select>
-                            </div>
->>>>>>> master
-                          
-                            <div class="col-12">
-                                <textarea class="form-control border-0" rows="5" name="message" placeholder="Message"></textarea>
-                            </div>
-                            <div>
-                                <input type="text" placeholder="location" name="location"   class="form-control border-0" >
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3" type="submit">Submit Request</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+            <button type="submit" class="btn btn-primary">Add Testimonial</button>
+        </form>
     </div>
-    <!-- Contact End -->
+</div>
 
+
+<!-- Display testimonials -->
+<div class="row mt-5">
+    <div class="col-lg-8 mx-auto">
+        {% for testimonial in testimonials %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ testimonial.user.username }}</h5>
+                <p class="card-text">{{ testimonial.content }}</p>
+                <p class="card-text"><small class="text-muted">{{ testimonial.created_at }}</small></p>
+                {% if request.user == testimonial.user %}
+                <form method="post" action="{% url 'delete_testimonial' testimonial.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <p>No testimonials available.</p>
+        {% endfor %}
+    </div>
+</div>
 
     <!-- Footer Start -->
     <div class="footer container-fluid position-relative bg-dark bg-light-radial text-white-50 py-6 px-5">
