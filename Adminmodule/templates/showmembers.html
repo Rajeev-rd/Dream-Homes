@@ -30,7 +30,7 @@
 
         <div class="card shadow mb-4" style="border-radius: 20px;">
             <div class="card-header py-3">
-                <h6 class="h5 font-weight-bold text-gray-900 mb-4 centered-container" style="margin-left:60px;background-color: #b3b1bb;width: 900px;height: 60px;">Show Interior Table</h6>
+                <h6 class="h5 font-weight-bold text-gray-900 mb-4 centered-container" style="margin-left:60px;background-color: #b3b1bb;width: 900px;height: 60px;">Members Table</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -40,8 +40,7 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Mobile</th>
-                            
+
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
@@ -51,7 +50,6 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Mobile</th>
                     
                                 <th>Update</th>
                                 <th>Delete</th>
@@ -61,9 +59,8 @@
                         <tbody>
                             <tr>
                                 <td>{{i.id}}</td>
-                                <td>{{i.name}}</td>
+                                <td>{{i.username}}</td>
                                 <td>{{i.email}}</td>
-                                <td>{{i.mobile}}</td>
                             
                                 <form action="{% url 'updateinterior' dataid=i.id %}" method="get" enctype="multipart/form-data">
                                 <td><button type="submit" class="btn btn-primary btn-user btn-block">
