@@ -63,15 +63,20 @@
                                 <td>{{i.description}}</td>
                                 <td><img src="{{i.image.url}}" width="50px" height="=30px"></td>
                                 <form action="{% url 'updateCategory' dataid=i.id %}" method="get" enctype="multipart/form-data">
-                                <td><button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Update
-                                <button></td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Update
+                                        </button>
+                                    </td>
                                 </form>
                                 <form action="{% url 'deletecategory' dataid=i.id %}" method="get" enctype="multipart/form-data">
-                                <td><button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Delete
-                                <button></td>
-                                    </form>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </form>
+                                
                             </tr>
          
                         </tbody>

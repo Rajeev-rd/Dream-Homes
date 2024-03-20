@@ -57,7 +57,7 @@
                                 
                             </tr>
                         </tfoot>
-                     
+                        {% for i in data %}
                         <tbody>
                             <tr>
                                 <td>{{i.name}}Nived</td>
@@ -68,15 +68,18 @@
                                 
                                 
                                 <form action="{% url 'showmessage' %}" method="get" enctype="multipart/form-data">
-                                <td><button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Reply
-                                <button></td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Reply
+                                        </button>
+                                    </td>
                                 </form>
+                                
 
                             </tr>
          
                         </tbody>
-                        
+                        {% endfor %}   
                     </table>
                 </div>
             </div>
