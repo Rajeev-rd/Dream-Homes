@@ -83,8 +83,7 @@
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Divider
-            <hr class="sidebar-divider">
+            
 
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -94,18 +93,18 @@
 
 
             <!-- Nav Item - Charts -->
-            <button class="transparent-button">any</button>
+
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'AddCategory' %}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Add Category</span></a>
+                    <span>Add Service</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'showCategory' %}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Show Category</span></a>
+                    <span>Show Service</span></a>
             </li>
 
             <!-- Divider -->
@@ -113,7 +112,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'Addproperty' %}">
                                 <i class="fas fa-fw fa-table"></i>
-                                <span>Add Property</span></a>
+                                <span>Add building projects</span></a>
                         </li>
             
                         <!-- Divider -->
@@ -121,45 +120,40 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'showproperty' %}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Show Property</span></a>
+                    <span>Building projects</span></a>
             </li>
 
             <!-- Divider -->
 
 
         <!-- Nav Item - Tables -->
-         <li class="nav-item">
-            <a class="nav-link" href="{% url 'Addinteriorcategory' %}">
-            <i class="fas fa-fw fa-table"></i>
-             <span>Add Interior Category</span></a>
-         </li>
-
-                                    <!-- Nav Item - Tables -->
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{% url 'showinteriorcategory' %}">
-                                            <i class="fas fa-fw fa-table"></i>
-                                            <span>Show Interior Category</span></a>
-                                    </li>
-                        
-                                    <!-- Divider -->
-        <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="{% url 'Addinterior' %}">
             <i class="fas fa-fw fa-table"></i>
-             <span>Add Interior</span></a>
+             <span>Add Interior projects</span></a>
          </li>
 
                                     <!-- Nav Item - Tables -->
                                     <li class="nav-item">
                                         <a class="nav-link" href="{% url 'showinterior' %}">
                                             <i class="fas fa-fw fa-table"></i>
-                                            <span>Show Interior</span></a>
+                                            <span>Interior projects</span></a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'Renovations' %}">
+                                        <i class="fas fa-fw fa-table"></i>
+                                        <span>Add Renovation projects</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'showRenovation' %}">
+                                            <i class="fas fa-fw fa-table"></i>
+                                            <span>Renovation projects</span></a>
+                                            </li>
                         
                                     <!-- Divider -->
                                      <!-- Nav Item - Tables -->
                                      <li class="nav-item">
-                                        <a class="nav-link" href="">
+                                        <a class="nav-link" href="{% url 'showmembers' %}">
                                             <i class="fas fa-fw fa-table"></i>
                                             <span>Show Members</span></a>
                                     </li>
@@ -181,8 +175,24 @@
                                     </li>
                                                             
                                     <!-- Divider -->
-                                    
-        <!-- Divider -->
+                                                                                                            <!-- Nav Item - Tables -->
+                                    <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'balance' %}">
+                                    <i class="fas fa-fw fa-table"></i>
+                                    <span>Balance Items</span></a>
+                                    </li>
+                                                            
+                                    <!-- Divider -->
+                                    <!-- Divider -->
+                                                                                                            <!-- Nav Item - Tables -->
+                                    <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'showBalance' %}">
+                                    <i class="fas fa-fw fa-table"></i>
+                                    <span>Show Balance items</span></a>
+                                    </li>
+
+                                                            
+       
             <hr class="sidebar-divider d-none d-md-block">
 
 

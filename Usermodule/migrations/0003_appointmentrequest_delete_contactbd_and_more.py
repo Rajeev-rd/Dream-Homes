@@ -24,7 +24,5 @@ class Migration(migrations.Migration):
         migrations.DeleteModel(
             name='contactbd',
         ),
-        migrations.DeleteModel(
-            name='RegistrationDb',
-        ),
+        
     ]

@@ -41,6 +41,7 @@
                                 <th>Email</th>
                                 <th>Location</th>
                                 <th>Message</th>
+                                <th>Date</th>
                                 <th>Reply</th>
                                 
                             </tr>
@@ -51,29 +52,34 @@
                                 <th>Email</th>
                                 <th>Location</th>
                                 <th>Message</th>
+                                <th>Date</th>
                                 <th>Reply</th>
                                 
                             </tr>
                         </tfoot>
-                        
+                        {% for i in data %}
                         <tbody>
                             <tr>
-                                <td>{{i.id}}Nived</td>
-                                <td>{{i.category}}Nived@gmail.com</td>
-                                <td>{{i.description}}Kannur</td>
-                                <td>{{i.price}}Hello</td>
+                                <td>{{i.name}}Nived</td>
+                                <td>{{i.email}}Nived@gmail.com</td>
+                                <td>{{i.location}}Kannur</td>
+                                <td>{{i.message}}Hellocreated_at</td>
+                                <td>{{i.created_at}}</td>
                                 
                                 
-                                <form action="" method="get" enctype="multipart/form-data">
-                                <td><button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Reply
-                                <button></td>
+                                <form action="{% url 'showmessage' %}" method="get" enctype="multipart/form-data">
+                                    <td>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Reply
+                                        </button>
+                                    </td>
                                 </form>
+                                
 
                             </tr>
          
                         </tbody>
-                        
+                        {% endfor %}   
                     </table>
                 </div>
             </div>

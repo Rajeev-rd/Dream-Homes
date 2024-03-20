@@ -149,4 +149,7 @@ def delete_testimonial(request, testimonial_id):
 
 def status(request):
     return render(request,'status.html')
+<<<<<<< HEAD
 
+=======
+>>>>>>> 29689d3519a21826802555c43630a2bd1fdf2d9f

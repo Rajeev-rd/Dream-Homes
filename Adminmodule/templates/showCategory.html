@@ -30,7 +30,7 @@
 
         <div class="card shadow mb-4" style="border-radius: 20px;">
             <div class="card-header py-3">
-                <h6 class="h5 font-weight-bold text-gray-900 mb-4 centered-container" style="margin-left:60px;background-color: #b3b1bb;width: 900px;height: 60px;">Show Category Table</h6>
+                <h6 class="h5 font-weight-bold text-gray-900 mb-4 centered-container" style="margin-left:60px;background-color: #b3b1bb;width: 900px;height: 60px;">Service Table</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -63,15 +63,20 @@
                                 <td>{{i.description}}</td>
                                 <td><img src="{{i.image.url}}" width="50px" height="=30px"></td>
                                 <form action="{% url 'updateCategory' dataid=i.id %}" method="get" enctype="multipart/form-data">
-                                <td><button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Update
-                                <button></td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Update
+                                        </button>
+                                    </td>
                                 </form>
                                 <form action="{% url 'deletecategory' dataid=i.id %}" method="get" enctype="multipart/form-data">
-                                <td><button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Delete
-                                <button></td>
-                                    </form>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </form>
+                                
                             </tr>
          
                         </tbody>
