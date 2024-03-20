@@ -322,7 +322,7 @@
                 <div class="mb-4">
                     <h1 class="display-5 text-uppercase mb-4">Request A <span class="text-primary">Call Back</span></h1>
                 </div>
-                <p class="mb-5">Nonumy ipsum amet tempor takimata vero ea elitr. Diam diam ut et eos duo duo sed. Lorem elitr sadipscing eos et ut et stet justo, sit dolore et voluptua labore. Ipsum erat et ea ipsum magna sadipscing lorem. Sit lorem sea sanctus eos. Sanctus sit tempor dolores ipsum stet justo sit erat ea, sed diam sanctus takimata sit. Et at voluptua amet erat justo amet ea ipsum eos, eirmod accusam sea sed ipsum kasd ut.</p>
+                <p class="mb-5">To initiate a callback from our team, kindly furnish your contact details below. Our proficient administrators will promptly reach out to further facilitate your quest for the perfect residence. We appreciate your consideration in entrusting us with your housing needs and eagerly anticipate the opportunity to assist you</p>
                 <a class="btn btn-primary py-3 px-5" href="{% url 'contact' %}">Get A Call</a>
             </div>
             <div class="col-lg-8">
@@ -335,19 +335,13 @@
                             </div>
                             <div class="col-12 col-sm-6">
                                 <input type="email" class="form-control border-0" name="email" placeholder="Your Email" style="height: 55px;" value="{{ user.email }}">
-<<<<<<< HEAD
-                            </div>
-                          
-                            <div class="col-12">
-                                <textarea class="form-control border-0" rows="5" name="message" placeholder="Message"></textarea>
-                            </div>
-                            <div>
-=======
                             </div>
                             <div>
                                 <select class="form-control border-0">
                                     <option>Select the service</option>
-                                    <option></option>
+                                    {% for i in cate %}
+                                    <option>{{ i.name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                           
@@ -355,7 +349,6 @@
                                 <textarea class="form-control border-0" rows="5" name="message" placeholder="Message"></textarea>
                             </div>
                             <div>
->>>>>>> master
                                 <input type="text" placeholder="location" name="location"   class="form-control border-0" >
                             </div>
                             <div class="col-12">
@@ -491,14 +484,22 @@
         </div>
         <div class="row g-5">
             <div class="col-lg-4 col-md-6">
+                {% for i in datas %}
                 <div class="service-item bg-white d-flex flex-column align-items-center text-center">
-                    <img class="img-fluid" src="{% static  'img/service-1.jpg' %}" alt="">
+                    <img class="img-fluid" src="{{i.image.url}}" alt="">
                     <div class="px-4 pb-4">
-                        <h4 class="text-uppercase mb-3">Building Construction</h4>
-                        <p>Embark on your construction journey with us at Dream Builders. Our seasoned team brings your architectural visions to life, ensuring impeccable craftsmanship and attention to detail at every step. From conceptualization to completion, trust us to build your dreams into reality, creating structures that stand the test of time.</p>
-                        <a class="btn text-primary" href="{% url 'contact' %}">Get the Service <i class="bi bi-arrow-right"></i></a>
+                        <h4 class="text-uppercase mb-3">{{i.name}}</h4>
+                        <p>{{i.description}}</p>
+                        <p>{{i.price}}</p>
+                        {% if user.is_authenticated %}
+                        <a class="btn btn-primary" href="#" role="button" style="margin-top: 29px;">Buy</a>
+                        {% else %}
+                        <a class="btn btn-primary" href="{% url 'login' %}" role="button" style="margin-top: 29px;">Buy</a>
+                        {% endif %}
+
                     </div>
                 </div>
+                {% endfor %}
             </div>
     <!-- balance material sales end -->
    
