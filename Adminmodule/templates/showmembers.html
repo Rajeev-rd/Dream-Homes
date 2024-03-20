@@ -63,15 +63,20 @@
                                 <td>{{i.email}}</td>
                             
                                 <form action="{% url 'updateinterior' dataid=i.id %}" method="get" enctype="multipart/form-data">
-                                <td><button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Update
-                                <button></td>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Update
+                                        </button>
+                                    </td>
                                 </form>
                                 <form action="{% url 'deleteinterior' dataid=i.id %}" method="get" enctype="multipart/form-data">
-                                <td><button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Delete
-                                <button></td>
-                                    </form>
+                                    <td>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </form>
+                                
                             </tr>
          
                         </tbody>
