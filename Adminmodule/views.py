@@ -258,12 +258,13 @@ def AddStatusFun(request):
 
 
 def MessageTable(request):
-    return render(request, "messagestable.html")
+    data = AppointmentRequest.objects.all()  
+    return render(request, "messagestable.html",{"data":data})
 
 
 def Message(request):
-    data = AppointmentRequest.objects.all()  
-    return render(request, "messagestable.html",{"data":data})
+
+    return render(request, "messagestable.html")
 
 
 

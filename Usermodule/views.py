@@ -61,14 +61,15 @@ def indexfront(request):
     return render(request, "frontendindexpage.html", {'testimonials': testimonials,'datas':datas,'cate':cate})
 
 #function for about page
-
 def about(request):
-    return render(request,"about.html")
+    cate = Category.objects.all()
+    return render(request,"about.html",{'cate':cate})
 
 #function for service page
 def service(request):
+    cate = Category.objects.all()
     testimonials = Testimonial.objects.all()  # Fetch all testimonials from the database
-    return render(request,"service.html", {'testimonials': testimonials})
+    return render(request,"service.html",{'testimonials': testimonials,'cate':cate})
 
 #function for projects page
 def projects(request):
@@ -76,7 +77,8 @@ def projects(request):
 
 #function for contact page
 def contact(request):
-    return render(request,"contact.html")
+    cate = Category.objects.all()
+    return render(request,"contact.html",{'cate':cate})
 
 #function for testimonial
 def testimonial(request):
