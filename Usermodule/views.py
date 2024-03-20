@@ -8,6 +8,7 @@ from django.views.generic import View, FormView
 from .forms import AppointmentRequestForm,TestimonialForm
 from .models import Testimonial
 from django.contrib.auth.decorators import login_required
+from Adminmodule.models import Balance,Category
 # Create your views here.
 
 # function for signup
@@ -54,8 +55,10 @@ def signout_view(request,*args, **kwargs):
 
 #function for index of user view
 def indexfront(request):
+    datas = Balance.objects.all()
+    cate = Category.objects.all()
     testimonials = Testimonial.objects.all()  # Fetch all testimonials from the database
-    return render(request, "frontendindexpage.html", {'testimonials': testimonials})
+    return render(request, "frontendindexpage.html", {'testimonials': testimonials,'datas':datas,'cate':cate})
 
 #function for about page
 
@@ -149,7 +152,5 @@ def delete_testimonial(request, testimonial_id):
 
 def status(request):
     return render(request,'status.html')
-<<<<<<< HEAD
 
-=======
->>>>>>> 29689d3519a21826802555c43630a2bd1fdf2d9f
+#function to get the balance items
