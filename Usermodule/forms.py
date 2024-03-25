@@ -28,7 +28,9 @@ class AppointmentRequestForm(forms.ModelForm):
     class Meta:
         model = AppointmentRequest
         fields = ['name', 'email', 'message', 'location']
-
+        widgets = {
+            'location': forms.HiddenInput(),  # Assuming location is a required field
+        }
 class TestimonialForm(forms.ModelForm):
     class Meta:
         model = Testimonial

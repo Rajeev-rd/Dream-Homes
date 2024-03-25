@@ -75,6 +75,21 @@
         border-radius: 5px;
         cursor: pointer;
     }
+    .service-item {
+    height: 100%; /* Set the height of each service-item */
+  }
+
+  .service-item .img-fluid {
+    max-height: 200px; /* Set maximum height for the image */
+    width: auto; /* Allow image width to adjust proportionally */
+  }
+
+  .service-item .px-4 {
+    height: 100%; /* Ensure content area fills the entire height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 </style>
 
 
@@ -265,54 +280,53 @@
     <!-- About End -->
     
 
-    <!-- Services Start -->
-    <div class="container-fluid bg-light py-6 px-5">
-        <div class="text-center mx-auto mb-5" style="max-width: 600px;">
-            <h1 class="display-5 text-uppercase mb-4">We Provide <span class="text-primary">The Best</span> Construction Services</h1>
+   <!-- Services Start -->
+<div class="container-fluid bg-light py-6 px-5">
+    <div class="text-center mx-auto mb-5" style="max-width: 600px;">
+        <h1 class="display-5 text-uppercase mb-4">We Provide <span class="text-primary">The Best</span> Construction Services</h1>
+    </div>
+    <div class="row g-5">
+        <div class="col-lg-4 col-md-6">
+            <div class="service-item bg-white d-flex flex-column align-items-center text-center">
+                <img class="img-fluid" src="{% static  'img/service-1.jpg' %}" alt="">
+                <div class="service-icon bg-white">
+                    <i class="fa fa-3x fa-building text-primary"></i>
+                </div>
+                <div class="px-4 pb-4">
+                    <h4 class="text-uppercase mb-3">Building Construction</h4>
+                    <p>Embark on your construction journey with us at Dream Builders. Our seasoned team brings your architectural visions to life, ensuring impeccable craftsmanship and attention to detail at every step. From conceptualization to completion, trust us to build your dreams into reality, creating structures that stand the test of time.</p>
+                    <a class="btn text-primary" href="{% url 'contact' %}?service_id=2">Get the Service <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
         </div>
-        <div class="row g-5">
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item bg-white d-flex flex-column align-items-center text-center">
-                    <img class="img-fluid" src="{% static  'img/service-1.jpg' %}" alt="">
-                    <div class="service-icon bg-white">
-                        <i class="fa fa-3x fa-building text-primary"></i>
-                    </div>
-                    <div class="px-4 pb-4">
-                        <h4 class="text-uppercase mb-3">Building Construction</h4>
-                        <p>Embark on your construction journey with us at Dream Builders. Our seasoned team brings your architectural visions to life, ensuring impeccable craftsmanship and attention to detail at every step. From conceptualization to completion, trust us to build your dreams into reality, creating structures that stand the test of time.</p>
-                        <a class="btn text-primary" href="{% url 'contact' %}">Get the Service <i class="bi bi-arrow-right"></i></a>
-                    </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="service-item bg-white rounded d-flex flex-column align-items-center text-center">
+                <img class="img-fluid" src="{% static  'img/service-2.jpg' %}" alt="">
+                <div class="service-icon bg-white">
+                    <i class="fa fa-3x fa-home text-primary"></i>
+                </div>
+                <div class="px-4 pb-4">
+                    <h4 class="text-uppercase mb-3">House Renovation</h4>
+                    <p>Elevate your living space with Dream Renovations. Our expert team specializes in transforming your house into a personalized sanctuary, blending modern elegance with timeless comfort. From conceptual design to meticulous execution, we breathe new life into your home, creating spaces that reflect your style and aspirations. Trust us to revitalize your living experience, one renovation at a time.</p>
+                    <a class="btn text-primary" href="{% url 'contact' %}?service_id=3">Get the Service <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item bg-white rounded d-flex flex-column align-items-center text-center">
-                    <img class="img-fluid" src="{% static  'img/service-2.jpg' %}" alt="">
-                    <div class="service-icon bg-white">
-                        <i class="fa fa-3x fa-home text-primary"></i>
-                    </div>
-                    <div class="px-4 pb-4">
-                        <h4 class="text-uppercase mb-3">House Renovation</h4>
-                        <p>Elevate your living space with Dream Renovations. Our expert team specializes in transforming your house into a personalized sanctuary, blending modern elegance with timeless comfort. From conceptual design to meticulous execution, we breathe new life into your home, creating spaces that reflect your style and aspirations. Trust us to revitalize your living experience, one renovation at a time.</p>
-                        <a class="btn text-primary" href="{% url 'contact' %}">Get the Service <i class="bi bi-arrow-right"></i></a>
-                    </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="service-item bg-white rounded d-flex flex-column align-items-center text-center">
+                <img class="img-fluid" src="{% static  'img/service-4.jpg' %}" alt="">
+                <div class="service-icon bg-white">
+                    <i class="fa fa-3x fa-palette text-primary"></i>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="service-item bg-white rounded d-flex flex-column align-items-center text-center">
-                    <img class="img-fluid" src="{% static  'img/service-4.jpg' %}" alt="">
-                    <div class="service-icon bg-white">
-                        <i class="fa fa-3x fa-palette text-primary"></i>
-                    </div>
-                    <div class="px-4 pb-4">
-                        <h4 class="text-uppercase mb-3">Interior Design</h4>
-                        <p>Unlock the full potential of your space with Dream Interiors. Our dedicated team of interior design specialists crafts bespoke solutions tailored to your unique vision and lifestyle. From concept development to the final flourish, we curate every detail with precision and passion. Let us transform your interior dreams into stunning realities, creating spaces that inspire and delight at every turn.</p>
-                        <a class="btn text-primary" href="{% url 'contact' %}">Get the Service <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </div>
+                <div class="px-4 pb-4">
+                    <h4 class="text-uppercase mb-3">Interior Design</h4>
+                    <p>Unlock the full potential of your space with Dream Interiors. Our dedicated team of interior design specialists crafts bespoke solutions tailored to your unique vision and lifestyle. From concept development to the final flourish, we curate every detail with precision and passion. Let us transform your interior dreams into stunning realities, creating spaces that inspire and delight at every turn.</p>
+                    <a class="btn text-primary" href="{% url 'contact' %}?service_id=1">Get the Service <i class="bi bi-arrow-right"></i></a>                </div>
             </div>
         </div>
     </div>
-    <!-- Services End -->
+</div>
+<!-- Services End -->
 
 
     <!-- Appointment Start -->
@@ -480,27 +494,28 @@
     <!-- balance material sales start-->
     <div class="container-fluid bg-light py-6 px-5">
         <div class="text-center mx-auto mb-5" style="max-width: 600px;">
-            <h1 class="display-5 text-uppercase mb-4">Overstock <span class="text-primary">Construction</span> Material Sale</h1>
+          <h1 class="display-5 text-uppercase mb-4">Overstock <span class="text-primary">Construction</span> Material Sale</h1>
         </div>
         <div class="row g-5">
-            <div class="col-lg-4 col-md-6">
-                {% for i in datas %}
-                <div class="service-item bg-white d-flex flex-column align-items-center text-center">
-                    <img class="img-fluid" src="{{i.image.url}}" alt="">
-                    <div class="px-4 pb-4">
-                        <h4 class="text-uppercase mb-3">{{i.name}}</h4>
-                        <p>{{i.description}}</p>
-                        <p>{{i.price}}</p>
-                        {% if user.is_authenticated %}
-                        <a class="btn btn-primary" href="#" role="button" style="margin-top: 29px;">Buy</a>
-                        {% else %}
-                        <a class="btn btn-primary" href="{% url 'login' %}" role="button" style="margin-top: 29px;">Buy</a>
-                        {% endif %}
-
-                    </div>
-                </div>
-                {% endfor %}
+          {% for i in datas %}
+          <div class="col-lg-4 col-md-6">
+            <div class="service-item bg-white d-flex flex-column align-items-center text-center">
+              <img class="img-fluid" src="{{ i.image.url }}" alt="">
+              <div class="px-4 pb-4">
+                <h4 class="text-uppercase mb-3">{{ i.name }}</h4>
+                <p>{{ i.description }}</p>
+                <p>{{ i.price }}</p>
+                {% if user.is_authenticated %}
+                <a class="btn btn-primary" href="{% url 'checkout' i.id %}" role="button" style="margin-top: 29px;">Buy</a>
+                {% else %}
+                <a class="btn btn-primary" href="{% url 'login' %}" role="button" style="margin-top: 29px;">Buy</a>
+                {% endif %}
+              </div>
             </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
     <!-- balance material sales end -->
    
 

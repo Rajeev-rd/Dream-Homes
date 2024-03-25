@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends 'frontendindexpage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .image {
+      width: 100%;
+      max-width: 600px;
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .description {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+  </head>
+  <body>
+  <div class="container">
+    <img class="image" src="https://via.placeholder.com/600" alt="Placeholder Image">
+    <div class="description">
+      <h2>Image Viewer</h2>
+      <p>This is a sample image viewer. You can replace this image with your own by changing the 'src' attribute of the 'img' tag.</p>
+      
+    </div>
+  </div>
+</body>
+</html>
+{% endblock %}

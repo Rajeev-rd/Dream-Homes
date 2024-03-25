@@ -124,10 +124,10 @@
                                 <input type="email" class="form-control border-0" name="email" placeholder="Your Email" style="height: 55px;" value="{{ user.email }}">
                             </div>
                             <div>
-                                <select class="form-control border-0">
+                                <select id="service-select" class="form-control border-0">
                                     <option>Select the service</option>
                                     {% for i in cate %}
-                                    <option>{{ i.name }}</option>
+                                    <option value="{{ i.id }}">{{ i.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -215,6 +215,17 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
-</body>
 
+    <!-- JavaScript to Automatically Select Service -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const serviceId = urlParams.get('service_id');
+            if (serviceId) {
+                const serviceSelect = document.getElementById('service-select');
+                serviceSelect.value = serviceId;
+            }
+        });
+    </script>
+</body>
 </html>
