@@ -3,6 +3,7 @@ from Usermodule import views
 from django.views.generic.base import RedirectView
 
 
+
 urlpatterns = [
     path('', RedirectView.as_view(pattern_name='indexfront', permanent=False)),
     path('indexfront',views.indexfront,name="indexfront"),
@@ -21,6 +22,8 @@ urlpatterns = [
     path('testimonial/',views.testimonial, name='testimonial'),
     path('add_testimonial/',views.add_testimonial, name='add_testimonial'),
     path('delete_testimonial/<int:testimonial_id>/', views.delete_testimonial, name='delete_testimonial'),
+    path('checkout/<int:balance_item_id>/', views.checkout, name='checkout'),
+    path('make_payment/', views.make_payment, name='make_payment'),
     
 
 ]

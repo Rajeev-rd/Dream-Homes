@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
@@ -6,9 +6,10 @@ from django.contrib.auth.models import User
 from .forms import RegistrationForm, LoginForm
 from django.views.generic import View, FormView
 from .forms import AppointmentRequestForm,TestimonialForm
-from .models import Testimonial
+from .models import Testimonial,Order_Address
 from django.contrib.auth.decorators import login_required
-from Adminmodule.models import Balance,Category
+from Adminmodule.models import Balance,Category,Payment
+import razorpay
 # Create your views here.
 
 # function for signup
@@ -86,22 +87,24 @@ def testimonial(request):
 
 #function to send the request to message
 def submit_request(request):
+    category_id = request.GET.get('category_id')
+    category = None
+    if category_id:
+        category = Category.objects.get(id=category_id)
+
     if request.method == 'POST':
         form = AppointmentRequestForm(request.POST)
         if form.is_valid():
-            # Create a new AppointmentRequest object but don't save it yet
             appointment_request = form.save(commit=False)
-            # Optionally, you can modify or add more data to the appointment_request object here
-            
-            # Now save the form data to the database
+            if category:
+                appointment_request.service = category
             appointment_request.save()
-            
-            # Redirect to a success page
             return redirect('indexfront')
     else:
         form = AppointmentRequestForm()
     
-    return render(request, 'frontendindexpage.html', {'form': form})
+    return render(request, 'frontendindexpage.html', {'form': form, 'category': category})
+
 
 def updatestatus(request):
     return render(request,"status.html")
@@ -155,4 +158,57 @@ def delete_testimonial(request, testimonial_id):
 def status(request):
     return render(request,'status.html')
 
-#function to get the balance items
+#function of payment
+@login_required
+def checkout(request, balance_item_id):
+    balance_item = Balance.objects.get(id=balance_item_id)
+    amount_in_paise = balance_item.price * 100
+    return render(request, 'payment.html', {'balance_item': balance_item, 'amount_in_paise': amount_in_paise})
+
+@login_required
+def make_payment(request):
+    if request.method == 'POST':
+        # Retrieve balance_item_id from the POST data
+        balance_item_id = request.POST.get('balance_item_id')
+        
+        if balance_item_id:
+            # Get the Balance object using the balance_item_id
+            try:
+                balance_item = Balance.objects.get(id=balance_item_id)
+            except Balance.DoesNotExist:
+                # Handle case where Balance object does not exist for the given ID
+                return HttpResponseBadRequest("Invalid balance_item_id")
+            
+            # Process payment using Razorpay
+            # For simplicity, let's assume the payment is successful
+            order_currency = 'INR'
+            client = razorpay.Client(auth=('rzp_test_IzIBFTmzd3zzKk', 'mMvIdZd7a4EU1pMd9tSQEbE0'))
+            payment = client.order.create({'amount': int(balance_item.price * 100), 'currency': "INR", 'payment_capture': '1'})
+            
+            # Return payment details
+            return JsonResponse({'payment': payment})
+        else:
+            return HttpResponseBadRequest("balance_item_id is required")
+    else:
+        return redirect('indexfront')
+
+    
+
+def checkout_Address(request):
+    if request.method == 'POST':
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        postal_code = request.POST.get('postal_code')
+        
+        # Create and save the Address object
+        address_obj = Order_Address.objects.create(
+            address=address,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+        )
+        address_obj.save()
+        
+        # return redirect('indexfront')  # Redirect to a success page
+    return render(request, 'payment.html')
