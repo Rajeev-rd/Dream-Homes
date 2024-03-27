@@ -1,4 +1,5 @@
-from django.http import HttpResponseBadRequest, JsonResponse
+from operator import attrgetter
+from django.http import HttpResponseBadRequest, HttpResponseForbidden, HttpResponseServerError, JsonResponse
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
@@ -6,11 +7,14 @@ from django.contrib.auth.models import User
 from .forms import RegistrationForm, LoginForm
 from django.views.generic import View, FormView
 from .forms import AppointmentRequestForm,TestimonialForm
-from .models import Testimonial,Order_Address
+from .models import AppointmentRequest, Testimonial,Order_Address
 from django.contrib.auth.decorators import login_required
-from Adminmodule.models import Balance,Category,Payment
+from Adminmodule.models import Balance,Category, Message,Payment,Renovation,Interior
 import razorpay
+import logging
 # Create your views here.
+
+logger = logging.getLogger(__name__)
 
 # function for signup
 class RegistrationView(FormView):
@@ -56,11 +60,26 @@ def signout_view(request,*args, **kwargs):
 
 #function for index of user view
 def indexfront(request):
-    datas = Balance.objects.all()
-    cate = Category.objects.all()
-    testimonials = Testimonial.objects.all()  # Fetch all testimonials from the database
-    return render(request, "frontendindexpage.html", {'testimonials': testimonials,'datas':datas,'cate':cate})
+    try:
+        # Attempt to fetch data from the database
+        datas = Balance.objects.all()
+        cate = Category.objects.all()
+        testimonials = Testimonial.objects.all()
 
+        # Render the template with the fetched data
+        return render(request, "frontendindexpage.html", {'testimonials': testimonials, 'datas': datas, 'cate': cate})
+    except Exception as e:
+        # Log the error for debugging purposes
+        logger.error(f"An error occurred while fetching data: {e}")
+        # Check if the user is authenticated and is_staff (admin)
+        if request.user.is_authenticated and request.user.is_staff:
+            # If the user is authenticated and is_staff, return the error response
+            return HttpResponseServerError("An error occurred. Please try again later.")
+        else:
+            # If the user is not authenticated or is not an admin, return a forbidden response
+            return HttpResponseForbidden("You are not authorized to view this page.")
+
+    
 #function for about page
 def about(request):
     cate = Category.objects.all()
@@ -91,7 +110,6 @@ def submit_request(request):
     category = None
     if category_id:
         category = Category.objects.get(id=category_id)
-
     if request.method == 'POST':
         form = AppointmentRequestForm(request.POST)
         if form.is_valid():
@@ -120,7 +138,6 @@ def testimonial(request):
             else:
                 # Set a default user or None if no user is logged in
                 form.instance.user = None
-
             form.save()
             return redirect('testimonial')
     else:
@@ -142,7 +159,6 @@ def add_testimonial(request):
             else:
                 # Set a default user or None if no user is logged in
                 form.instance.user = None
-
             form.save()
             return redirect('testimonial')
     else:
@@ -212,3 +228,17 @@ def checkout_Address(request):
         
         # return redirect('indexfront')  # Redirect to a success page
     return render(request, 'payment.html')
+
+def message_user(request, dataid):
+    current_user = request.user
+    msg = AppointmentRequest.objects.filter(name=dataid)
+
+    data = Message.objects.all()
+
+    all_msgs = sorted(
+        data,
+        key=attrgetter('timestamp'),
+        reverse=True
+    )
+
+    return render(request, 'message_user.html', {"data": data, "all_msgs": all_msgs, "msg": msg})

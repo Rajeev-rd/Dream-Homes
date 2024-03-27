@@ -30,7 +30,7 @@ urlpatterns = [
     # path('updateinteriorfun1/<item>', views.updateinteriorfun1, name="updateinteriorfun1"),
     path('updateinteriorfun/<item>', views.updateinteriorfun, name="updateinteriorfun"),
     path('MessageTable/', views.MessageTable, name="MessageTable"),
-    path('showmessage/', views.showmessage, name="showmessage"),
+    path('showmessage/<dataid>', views.showmessage, name="showmessage"),
     path('showmembers/', views.showmembers, name="showmembers"),
 
     path('balance/', views.balance, name="balance"),
@@ -47,5 +47,11 @@ urlpatterns = [
     path('updateRenovation/<dataid>', views.updateRenovation, name="updateRenovation"),
     path('updateRenovationfun/<item>', views.updateRenovationfun, name="updateRenovationfun"),
     path('deleteRenovation/<dataid>', views.deleteRenovation, name="deleteRenovation"),
+
+
+
+    path('add_message/', views.add_message, name="add_message"),
+    path('signout_admin/', views.signout_admin, name="signout_admin"),
+
 
     ]

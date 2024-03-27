@@ -67,7 +67,7 @@
                                 <td>{{i.created_at}}</td>
                                 
                                 
-                                <form action="{% url 'showmessage' %}" method="get" enctype="multipart/form-data">
+                                <form action="{% url 'showmessage' dataid=i.name %}" method="get" enctype="multipart/form-data">
                                     <td>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Reply

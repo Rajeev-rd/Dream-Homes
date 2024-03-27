@@ -24,6 +24,6 @@ urlpatterns = [
     path('delete_testimonial/<int:testimonial_id>/', views.delete_testimonial, name='delete_testimonial'),
     path('checkout/<int:balance_item_id>/', views.checkout, name='checkout'),
     path('make_payment/', views.make_payment, name='make_payment'),
-    
+    path('message_user/<dataid>',views.message_user, name='message_user'),
 
 ]

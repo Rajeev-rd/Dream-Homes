@@ -1,10 +1,17 @@
+from datetime import timezone
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from Adminmodule.models import Category,Property,InteriorCategory,Interior,Status,Contact,Renovation,Balance
 from django.core.files.storage import FileSystemStorage
 from Usermodule.models import AppointmentRequest
+from Usermodule.views import SignInView
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth import authenticate, login,logout
+from Adminmodule.models import Message
 from django.contrib.auth.models import User
+from itertools import chain
+from operator import attrgetter
 
 
 
@@ -257,13 +264,7 @@ def AddStatusFun(request):
 
 
 
-def MessageTable(request):
-    data = AppointmentRequest.objects.all()  
-    return render(request, "messagestable.html",{"data":data})
-
-
 def Message(request):
-
     return render(request, "messagestable.html")
 
 
@@ -281,10 +282,6 @@ def message(request):
         obj = Contact(username=username,email=email,location=location,message=message)
         obj.save()
     return redirect(Addinterior)
-
-
-def showmessage(request):  
-    return render(request, "showmessage.html")
 
 
 def balance(request):  
@@ -339,9 +336,6 @@ def deleteBalance(request, dataid):
 
 
 
-
-
-
 def Renovations(request):  
     data=Category.objects.all()
     return render(request, "Renovations.html",{"data":data})
@@ -392,3 +386,78 @@ def deleteRenovation(request, dataid):
     data=Renovation.objects.filter(id=dataid)
     data.delete()
     return redirect(showRenovation)
+
+def MessageTable(request):
+    data = AppointmentRequest.objects.all()  
+    return render(request, "messagestable.html",{"data":data})
+
+
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from .models import Message
+
+
+from django.shortcuts import redirect, HttpResponse
+from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist
+
+from django.shortcuts import redirect
+
+
+from django.shortcuts import render, redirect
+from .models import Message
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+
+
+
+def add_message(request):
+    alert = False
+
+    if request.method == "POST":
+        receiver = request.POST.get("receiver")
+        sender = request.POST.get("sender")
+        msg = request.POST.get("msg")
+
+        # Use get method with a default value for 'image' to avoid MultiValueDictKeyError
+        image = request.FILES.get("image", None)
+
+        obj = Message(receiver=receiver, sender=sender, msg=msg, image=image)
+        obj.save()
+        if sender == "admin":
+            
+            return redirect('showmessage',dataid=receiver)
+        else:
+            
+            return redirect('message_user', dataid=receiver)
+
+    return render(request, 'web.html', {'alert': alert})
+
+
+from django.shortcuts import render
+from django.db.models import Q
+from operator import attrgetter
+from itertools import chain
+from .models import Message
+
+def showmessage(request, dataid):
+    current_user = request.user
+    msg = AppointmentRequest.objects.filter(name=dataid)
+
+    data = Message.objects.filter(Q(sender=dataid) | Q(receiver=dataid))
+
+    all_msgs = sorted(
+        data,
+        key=attrgetter('timestamp'),
+        reverse=True
+    )
+
+    return render(request, 'showmessage.html', {"data": data, "all_msgs": all_msgs, "msg": msg})
+
+
+
+def signout_admin(request,*args, **kwargs):
+    logout(request)
+    return redirect("indexfront")
