@@ -40,11 +40,12 @@
                                 <th>ID</th>
                                 <th>Category</th>
                                 <th>Name</th>
-                                <th>description</th>
-                                <th>price</th>
+                                <th>Description</th>
+                                <th>Price</th>
                                 <th>SQFT</th>
                                 <th>Floor</th>
-                                <th>image</th>
+                                <th>Image</th>
+                                <th>Plan</th> <!-- New column for Plan -->
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
@@ -54,11 +55,12 @@
                                 <th>ID</th>
                                 <th>Category</th>
                                 <th>Name</th>
-                                <th>description</th>
-                                <th>price</th>
+                                <th>Description</th>
+                                <th>Price</th>
                                 <th>SQFT</th>
                                 <th>Floor</th>
-                                <th>image</th>
+                                <th>Image</th>
+                                <th>Plan</th> <!-- New column for Plan -->
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
@@ -74,6 +76,7 @@
                                 <td>{{i.sqft}}</td>
                                 <td>{{i.floor}}</td>
                                 <td><img src="{{i.image.url}}" width="50px" height="=30px"></td>
+                                <td><img src="{{ i.plan_image.url }}" width="50px" height="30px"></td>
                                 <form action="{% url 'updateProperty' dataid=i.id %}" method="get" enctype="multipart/form-data">
                                     <td>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">

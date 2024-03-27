@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% extends 'Adminindex.html' %}
-{% block content %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,45 +20,166 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
     }
 
+    body {
+        display: flex;
+        font-color: black;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
 
+    .black-background {
+        background-color: white;
+    }
 
+    .transparent-button {
+        background-color: rgba(255, 255, 255, 0.5);
+        width: 250px;
+        height: 60px;
+        color: black;
+        padding: 10px 20px;
+        font-size: 26px;
+        font-family:American Typewriter,serif;
+        font-weight:bold;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: left;
+        padding-left: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .transparent-button:hover {
+        background-color: rgb(133, 176, 190);
+    }
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+    .left-panel {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        height: ;
+        width: 300px;
+        padding: 20px;
+        background-color: rgb(133, 176, 190);
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+
+    }
+
+    .left-panel input,
+    .left-panel button {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        color: white;
+    }
+
+.modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    z-index: 10000;
+}
+    .status-indicator {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .status-indicator img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 4px solid transparent;
+        transition: filter 0.3s ease-in-out;
+    }
+
+    .status-indicator::before {
+        content: "";
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        border-radius: 50%;
+        border: 4px solid transparent;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .status-indicator:hover::before {
+        border-color: #3498db;
+        opacity: 1;
+        box-shadow: 0 0 10px 5px #3498db;
+    }
 </style>
+{% block content %}
 
-
-<div class="content" style="margin-left:620px;margin-top:-590px;">
+<div class="content" style="margin-left:10px;margin-top:-520px;">
     <div class="chat-container" id="chat-container" style="background-color: rgb(133, 176, 190);position: relative; height: 80vh; overflow-y: auto;">
-       
-                <div class="message user-message" style="text-align: right;">
-                    
-                        <img src="{{ msg.image.url }}" height="300px;"width="200px;"> - you
-                    
-                        {{ msg.msg }} - you
-                    
-                </div>
-            
-                <div class="message system-message" style="text-align: left;">
-                    
-                        <img src="{{ msg.image.url }}" height="300px;"width="200px;"> - {{ msg.username }}
-                    
-                        {{ msg.msg }} - {{ msg.username }}
-                   
-                </div>
- 
+        {% for msg in all_msgs %}
+        {% if msg.sender == "admin" %}
+            <div class="message system-message" style="text-align: right;">
+                {% if msg.image %}
+                    <img src="{{ msg.image.url }}" height="300px" width="200px;"> - {{ msg.sender }}
+                {% else %}
+                    <span class="admin-text">{{ msg.msg }}</span> - {{ msg.sender }}
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="message user-message" style="text-align: left;">
+                {% if msg.image %}
+                    <img src="{{ msg.image.url }}" height="300px" width="200px;"> - {{ msg.sender }}
+                {% else %}
+                    {{ msg.msg }} - {{ msg.sender }}
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+    
+    
+    
 
-        <div class="message-input-container" style="position: fixed; bottom: 70px; width: 779px;background-color: rgb(133, 176, 190); padding: 10px;border-radius: 10px;">
-
-                <form method="post" action="" enctype="multipart/form-data">
-
-                    <input type="hidden" name="username" value="{{request.session.name}}">
-                    <input type="hidden" name="name" value="{{i.username}}">
+        <div class="message-input-container" style="position: fixed; bottom: 50px; width: 800px;background-color: rgb(133, 176, 190); padding: 10px;border-radius: 10px;">
+            {% for i in msg %}
+            {% if forloop.first %}
+                <form method="post" action="{% url 'add_message' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="receiver" value="{{i.name}}">
+                    <input type="hidden" name="sender" value="admin">
                     <input type="text" class="message-input" placeholder="Type your message..." name="msg">
                     <input type="file" class="image-input" style="margin-left:10px;" name="image">
                     <button class="send-button">Send</button>
                 </form>
-
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
-</div><br><br>
+</div>
 
 <!-- Include jQuery library -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -82,8 +203,16 @@
 
 
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212; /* Dark background color */
+      color: #fff; /* Light text color */
+    }
 
     .chat-container {
+    
       width:1200px;
       max-width: 800px;
       margin: 20px auto;
@@ -91,9 +220,7 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       overflow: hidden;
-      margin-left: 20px;
-      margin-top: 620px;
-      margin-bottom: 20px;
+      margin-top: 520px;
     }
 
     .message {
@@ -128,7 +255,7 @@
       border-radius: 5px;
       margin-right: 10px;
       background-color: white; /* Darker background color for the input field */
-      color: #fff;
+      color: black;
     }
 
     .send-button {

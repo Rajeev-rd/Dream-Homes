@@ -17,9 +17,11 @@ class Property(models.Model):
     sqft = models.PositiveIntegerField()
     floor = models.PositiveIntegerField()
     image = models.ImageField(upload_to='property_images/', null=True, blank=True)
+    plan_image = models.ImageField(upload_to='plan_images/', null=True, blank=True)
 
     def __str__(self):
         return self.name
+
 
 class InteriorCategory(models.Model):
     name = models.CharField(max_length=100)
@@ -80,3 +82,13 @@ class Payment(models.Model):
     balance_item = models.ForeignKey(Balance, on_delete=models.CASCADE)
     razorpay_payment_id = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class Message(models.Model):
+    sender=models.TextField(max_length=100,null=True)
+    receiver = models.TextField(max_length=100,null=True)
+    msg=models.CharField(max_length=100)
+    image = models.ImageField(null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
