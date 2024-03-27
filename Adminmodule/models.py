@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -72,3 +73,15 @@ class Balance(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class Message(models.Model):
+    sender=models.TextField(max_length=100,null=True)
+    receiver = models.TextField(max_length=100,null=True)
+    msg=models.CharField(max_length=100)
+    image = models.ImageField(null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)

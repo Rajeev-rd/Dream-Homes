@@ -146,7 +146,7 @@
                     <div class="mb-4">
                         <h1 class="display-5 text-uppercase mb-4">Request A <span class="text-primary">Call Back</span></h1>
                     </div>
-                    <p class="mb-5">Nonumy ipsum amet tempor takimata vero ea elitr. Diam diam ut et eos duo duo sed. Lorem elitr sadipscing eos et ut et stet justo, sit dolore et voluptua labore. Ipsum erat et ea ipsum magna sadipscing lorem. Sit lorem sea sanctus eos. Sanctus sit tempor dolores ipsum stet justo sit erat ea, sed diam sanctus takimata sit. Et at voluptua amet erat justo amet ea ipsum eos, eirmod accusam sea sed ipsum kasd ut.</p>
+                    <p class="mb-5">To initiate a callback from our team, kindly furnish your contact details below. Our proficient administrators will promptly reach out to further facilitate your quest for the perfect residence. We appreciate your consideration in entrusting us with your housing needs and eagerly anticipate the opportunity to assist you</p>
                     <a class="btn btn-primary py-3 px-5" href="">Get A Call</a>
                 </div>
                 <div class="col-lg-8">
@@ -163,7 +163,9 @@
                                 <div>
                                     <select class="form-control border-0">
                                         <option>Select the service</option>
-                                        <option></option>
+                                        {% for i in cate %}
+                                        <option>{{ i.name }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                               

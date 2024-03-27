@@ -21,6 +21,9 @@ urlpatterns = [
     path('testimonial/',views.testimonial, name='testimonial'),
     path('add_testimonial/',views.add_testimonial, name='add_testimonial'),
     path('delete_testimonial/<int:testimonial_id>/', views.delete_testimonial, name='delete_testimonial'),
+
+
+    path('message_user/<dataid>',views.message_user, name='message_user'),
     
 
 ]

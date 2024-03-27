@@ -6,8 +6,9 @@ from django.contrib.auth.models import User
 from .forms import RegistrationForm, LoginForm
 from django.views.generic import View, FormView
 from .forms import AppointmentRequestForm,TestimonialForm
-from .models import Testimonial
+from .models import Testimonial,AppointmentRequest
 from django.contrib.auth.decorators import login_required
+from Adminmodule.models import Balance,Category,Message
 # Create your views here.
 
 # function for signup
@@ -54,18 +55,21 @@ def signout_view(request,*args, **kwargs):
 
 #function for index of user view
 def indexfront(request):
+    datas = Balance.objects.all()
+    cate = Category.objects.all()
     testimonials = Testimonial.objects.all()  # Fetch all testimonials from the database
-    return render(request, "frontendindexpage.html", {'testimonials': testimonials})
+    return render(request, "frontendindexpage.html", {'testimonials': testimonials,'datas':datas,'cate':cate})
 
 #function for about page
-
 def about(request):
-    return render(request,"about.html")
+    cate = Category.objects.all()
+    return render(request,"about.html",{'cate':cate})
 
 #function for service page
 def service(request):
+    cate = Category.objects.all()
     testimonials = Testimonial.objects.all()  # Fetch all testimonials from the database
-    return render(request,"service.html", {'testimonials': testimonials})
+    return render(request,"service.html",{'testimonials': testimonials,'cate':cate})
 
 #function for projects page
 def projects(request):
@@ -73,7 +77,8 @@ def projects(request):
 
 #function for contact page
 def contact(request):
-    return render(request,"contact.html")
+    cate = Category.objects.all()
+    return render(request,"contact.html",{'cate':cate})
 
 #function for testimonial
 def testimonial(request):
@@ -149,3 +154,24 @@ def delete_testimonial(request, testimonial_id):
 
 def status(request):
     return render(request,'status.html')
+
+#function to get the balance items
+from django.shortcuts import render
+from django.db.models import Q
+from operator import attrgetter
+from itertools import chain
+
+
+def message_user(request, dataid):
+    current_user = request.user
+    msg = AppointmentRequest.objects.filter(name=dataid)
+
+    data = Message.objects.all()
+
+    all_msgs = sorted(
+        data,
+        key=attrgetter('timestamp'),
+        reverse=True
+    )
+
+    return render(request, 'message_user.html', {"data": data, "all_msgs": all_msgs, "msg": msg})

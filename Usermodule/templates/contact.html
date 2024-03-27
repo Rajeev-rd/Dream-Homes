@@ -126,7 +126,9 @@
                             <div>
                                 <select class="form-control border-0">
                                     <option>Select the service</option>
-                                    <option></option>
+                                    {% for i in cate %}
+                                    <option>{{ i.name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                           
