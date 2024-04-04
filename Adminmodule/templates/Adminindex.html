@@ -70,7 +70,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Dream Homes</div>
             </a>
 
             <!-- Divider -->
@@ -82,15 +82,6 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-
-            
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-
 
             <!-- Nav Item - Charts -->
 
@@ -191,6 +182,16 @@
                                     <span>Show Balance items</span></a>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'Advance' %}">
+                                        <i class="fas fa-fw fa-table"></i>
+                                        <span>Advance Pay</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'FullPays' %}">
+                                            <i class="fas fa-fw fa-table"></i>
+                                            <span>Full Pay</span></a>
+                                            </li>
+                                    <li class="nav-item">
                                         <a class="nav-link" href="{% url 'signout_admin' %}">
                                         <i class="fas fa-fw fa-table"></i>
                                         <span>Logout</span></a>
@@ -211,26 +212,11 @@
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-
-                <!-- End of Topbar -->
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4 "></div>
-                        <h1 class="h3 mb-0 text-gray-800 centered-container" >Dashboard</h1>
-                        
-                    </div><br>
-
-                    
-
-
             <!-- End of Main Content -->
  {% block content %}
-{% endblock %}
+
             <!-- Footer -->
             <footer class="sticky-footer bg-white" style="position: sticky;bottom: 0;">
                 <div class="container my-auto">
@@ -240,7 +226,7 @@
                 </div>
             </footer>
             <!-- End of Footer -->
-
+{% endblock %}
         </div>
         <!-- End of Content Wrapper -->
 

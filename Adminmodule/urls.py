@@ -53,5 +53,10 @@ urlpatterns = [
     path('add_message/', views.add_message, name="add_message"),
     path('signout_admin/', views.signout_admin, name="signout_admin"),
 
+    path('Advance/', views.Advance, name="Advance"),
+    path('AdvancePays/', views.AdvancePays, name="AdvancePays"),
+    path('FullPays/', views.FullPays, name="FullPays"),
+    path('FullAmound/', views.FullAmound, name="FullAmound"),
+
 
     ]

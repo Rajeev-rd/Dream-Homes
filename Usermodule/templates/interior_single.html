@@ -1,0 +1,37 @@
+<!-- Building construction single page -->
+<!DOCTYPE html>
+{% extends 'frontendindexpage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building construction</title>
+    <style>
+        .container {
+            width: 50%;
+            margin: auto;
+            text-align: center;
+        }
+        img {
+            width: 100%; /* Adjust the width of the image to fill the container */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 20px;
+        }
+        .download-link {
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ Interior.image.url }}" alt="Image">
+        <h2>{{ Interior.name }}</h2>
+        <p>{{ Interior.description }}</p>
+        <p>Amount:{{Interior.price}}</p>
+    </div>
+</body>
+</html>
+{% endblock %}
+

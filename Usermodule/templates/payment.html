@@ -86,6 +86,29 @@
   </style>
 </head>
 <body>
+  <script>
+    // Fetch messages from server after page loads
+    window.onload = function() {
+        fetch('make_payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}' // Ensure to include CSRF token
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                window.location.href = 'indexfront';  // Redirect to the frontend index page
+            } else {
+                console.error(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    };
+</script>
   <!-- Checkout form -->
   <div class="container">
     <div class="card">
@@ -125,7 +148,7 @@
     </div>
   </div>
 
-  <!-- Razorpay Checkout Script -->
+ <!-- Razorpay Checkout Script -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
     var options = {
@@ -136,8 +159,8 @@
         "description": "Test Payment",
         "image": "https://example.com/your_logo.jpg",
         "handler": function(response) {
-            // Handle successful payment response here
-            alert(response.razorpay_payment_id);
+            // Redirect to the desired page after successful payment
+            window.location.href = "{% url 'indexfront' %}";
         },
         "prefill": {
             "name": "Dream Homes",
@@ -171,38 +194,6 @@
     document.querySelectorAll('input').forEach(item => {
         item.addEventListener('input', checkForm);
     });
-
-    function openRazorpay() {
-    var balanceItemId = document.querySelector('input[name="balance_item_id"]').value;
-    // Make sure balanceItemId is not empty before proceeding
-    if (balanceItemId.trim() !== '') {
-        // Include balance_item_id in the AJAX request
-        $.ajax({
-            type: 'POST',
-            url: '{% url 'make_payment' %}',
-            data: {'balance_item_id': balanceItemId},
-            success: function(response) {
-                var options = response.payment;
-                options.key = "rzp_test_IzIBFTmzd3zzKk";
-                options.handler = function(response) {
-                    // Handle successful payment
-                    alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
-                    window.location.href = "/"; // Redirect to the homepage after successful payment
-                };
-                var rzp = new Razorpay(options);
-                rzp.open(); // Open the Razorpay checkout modal
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-                // Handle error, if any
-            }
-        });
-    } else {
-        // Handle case where balance_item_id is empty
-        console.error("balance_item_id is empty");
-    }
-}
-
 </script>
 </body>
 </html>

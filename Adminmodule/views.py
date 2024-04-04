@@ -1,4 +1,5 @@
 from datetime import timezone
+from pyexpat.errors import messages
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -86,9 +87,10 @@ def Addpropertyfun(request):
 
 
         IM = request.FILES["image"]
+        plan_image_file = request.FILES["plan_image"]
         category_instance = Category.objects.get(name=CategoryName)
 
-        obj = Property(category=category_instance, name=name, price=price, description=description, floor=floor, sqft=sqft, image=IM)
+        obj = Property(category=category_instance, name=name, price=price, description=description, floor=floor, sqft=sqft, image=IM,plan_image=plan_image_file)
         obj.save()
     return redirect(showproperty)
 
@@ -181,31 +183,6 @@ def showinterior(request):
     return render(request, "showinterior.html",{"data":data})
 
 
-# def updateinteriorcategory(request,dataid):
-#     data=InteriorCategory.objects.filter(id=dataid)
-#     return render(request, "updateinteriorcategory.html",{"data":data})
-
-# def updateinteriorfun1(request, item):
-#     if request.method=="POST":
-#         name= request.POST.get("name")
-#         description = request.POST.get("description")
-        
-
-#         try:
-#             IM=request.FILES['image']
-#             FS=FileSystemStorage()
-#             file=FS.save(IM.name,IM)
-
-#         except MultiValueDictKeyError:
-#             file=InteriorCategory.objects.get(id=item).image
-
-#         InteriorCategory.objects.filter(id=item).update(name=name,description=description,image=file)
-#     return redirect(showinteriorcategory)
-
-# def deleteinteriorcategory(request, dataid):
-#     data=InteriorCategory.objects.filter(id=dataid)
-#     data.delete()
-#     return redirect(showinteriorcategory)
 
 
 
@@ -247,22 +224,20 @@ def showmembers(request):
 
 
 def AddStatus(request):
-    return render(request, "AddStatus.html")
-
-
+    data=User.objects.all()
+    return render(request, "AddStatus.html",{"data":data})
 
 
 def AddStatusFun(request):
 
     if request.method == "POST":
+        CustomerName = request.POST.get("CustomerName")
         details = request.POST.get("details")
-
         IM = request.FILES["image"]
-        obj = Status(details=details,image=IM)
+        obj = Status(CustomerName=CustomerName,details=details,image=IM)
         obj.save()
-    return redirect(Addinterior)
-
-
+        messages.success(request, "Add Status Successfully")
+    return redirect(AddStatus)
 
 def Message(request):
     return render(request, "messagestable.html")
@@ -342,15 +317,15 @@ def Renovations(request):
 def addRenovation(request):
 
     if request.method == "POST":
-        name= request.POST.get("name")
+        CategoryName = request.POST.get("CategoryName")
         description = request.POST.get("description")
         price = request.POST.get("price")
 
 
         IM = request.FILES["image"]
-        obj = Renovation(name=name,description=description,price=price,image=IM)
+        obj = Renovation(category=CategoryName,description=description,price=price,image=IM)
         obj.save()
-    return redirect(balance)
+    return redirect(Renovations)
 
 
 
@@ -366,7 +341,6 @@ def updateRenovation(request,dataid):
 
 def updateRenovationfun(request, item):
     if request.method=="POST":
-        name= request.POST.get("name")
         description = request.POST.get("description")
         price = request.POST.get("price")
         
@@ -379,7 +353,7 @@ def updateRenovationfun(request, item):
         except MultiValueDictKeyError:
             file=Renovation.objects.get(id=item).image
 
-        Renovation.objects.filter(id=item).update(name=name,description=description,price=price,image=file)
+        Renovation.objects.filter(id=item).update(description=description,price=price,image=file)
     return redirect(showRenovation)
 
 def deleteRenovation(request, dataid):
@@ -396,7 +370,7 @@ def MessageTable(request):
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .models import Message
+from .models import AdvancePay, FullPay, Message
 
 
 from django.shortcuts import redirect, HttpResponse
@@ -455,6 +429,42 @@ def showmessage(request, dataid):
     )
 
     return render(request, 'showmessage.html', {"data": data, "all_msgs": all_msgs, "msg": msg})
+
+from django.shortcuts import render, redirect
+from .models import AdvancePay, FullPay, Category, User
+from django.contrib import messages
+
+def Advance(request):
+    data = Category.objects.all()  
+    datas = User.objects.all() 
+    return render(request, "Advance.html",{"data":data,"datas":datas})
+
+def AdvancePays(request):
+    if request.method == "POST":
+        name= request.POST.get("name")
+        category = request.POST.get("category")
+        advance_amount = request.POST.get("advance_amount")
+        obj = AdvancePay(name=name, Category=category, AdvanceAmount=advance_amount)
+        obj.save()
+    return redirect('balance')  # Assuming you have a URL named 'balance' defined in your URLs
+
+def FullPays(request):
+    datas = User.objects.all()
+    data = Category.objects.all()  
+    return render(request, "FullPay.html",{"data":data,"datas":datas})
+
+def FullAmound(request):
+    if request.method == "POST":
+        username= request.POST.get("username")
+        category = request.POST.get("category")
+        labour_cost = request.POST.get("labour_cost")
+        material_cost = request.POST.get("material_cost")
+        total_amount = request.POST.get("total_amount")
+        obj = FullPay(username=username, Category=category, Labourcost=labour_cost, Materialcost=material_cost, Amount=total_amount)
+        obj.save()
+        messages.success(request, "Successfully")
+    return redirect('full_pays')  # Assuming you have a URL named 'full_pays' defined in your URLs
+
 
 
 

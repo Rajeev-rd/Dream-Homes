@@ -22,11 +22,22 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Latest Update</h2>
-        <img src="#" alt="Image">
-        <p>Description: This is the latest update description.</p>
-    </div>
+    {% if data %}
+    {% for i in data %}
+        {% if user.username == i.CustomerName %}
+        
+        <div class="container">
+            <h2>Latest Update</h2>
+            <img src="{{i.image.url}}" alt="Image">
+            <p>Description: {{i.details}}.</p>
+        </div>
+        {% endif %}
+    {% endfor %}
+{% else %}
+    <p>No updates available.</p>
+{% endif %}
+
+
 </body>
 </html>
 {% endblock %}

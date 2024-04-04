@@ -90,11 +90,11 @@
     flex-direction: column;
     justify-content: space-between;
   }
+  
 </style>
 
 
 <body>
-
     <!-- Topbar Start -->
     <div class="container-fluid px-5 d-none d-lg-block">
         <div class="row gx-5">
@@ -162,10 +162,8 @@
                         <div class="dropdown-menu m-0">
                             <!-- codition to hide from non login -->
                             {% if user.is_authenticated %}
-                            <a href="{% url 'projects' %}" class="dropdown-item">Our Project</a>
                             <a href="{% url 'testimonial' %}" class="dropdown-item">Testimonial</a>
                             {% else %}
-                            <a href="{% url 'login' %}" class="dropdown-item">Our Project</a>
                             <a href="{% url 'testimonial' %}" class="dropdown-item">Testimonial</a>
                             {% endif %}
                         </div>
@@ -181,6 +179,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{% url 'message_user' dataid=user.id %}">Message</a></li>
                                 <li><a class="dropdown-item" href="{% url 'status' %}">Project Status</a></li>
+                                <li><a class="dropdown-item" href="{% url 'advance_payment_page' %}">Advance Payment</a></li>
+                                <li><a class="dropdown-item"href="{% url 'full_payment_page' %}">Full Payment</a></li>
                                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                             </ul>
                         </li>
@@ -377,7 +377,7 @@
     <!-- Appointment End -->
 
 
-   <!-- Portfolio Start -->
+      <!-- Portfolio Start -->
 <div class="container-fluid bg-light py-6 px-5">
     <div class="text-center mx-auto mb-5" style="max-width: 600px;">
         <h1 class="display-5 text-uppercase mb-4">Some Of Our <span class="text-primary">Popular</span> Dream Projects</h1>
@@ -415,56 +415,46 @@
         </div>
     </div>
     <div class="row g-5 portfolio-container">
-        <!-- Building Construction -->
-        {% for property in building_construction %}
-        <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item building">
-            <div class="position-relative portfolio-box">
-                <img class="img-fluid w-100" src="{{ property.image.url }}" alt="">
-                <a class="portfolio-title shadow-sm" href="#">
-                    <p class="h4 text-uppercase">{{ property.name }}</p>
-                    <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ property.description }}</span>
-                </a>
-                <a class="portfolio-btn" href="{{ property.image.url }}" data-lightbox="portfolio">
-                    <i class="bi bi-plus text-white"></i>
-                </a>
-            </div>
+    <!-- Building Construction -->
+    {% for property in Pro %}
+    <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item building">
+        <div class="position-relative portfolio-box">
+            <img class="img-fluid w-100" src="{{ property.image.url }}" alt="">
+            <a class="portfolio-title shadow-sm" href="{% url 'bltcntsingle' property.id %}">
+                <p class="h4 text-uppercase">{{ property.category }}</p>
+            </a>
         </div>
-        {% endfor %}
+    </div>
+    {% endfor %}
 
-        <!-- Interior Design -->
-        {% for interior_item in interior_design %}
-        <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item interior">
-            <div class="position-relative portfolio-box">
-                <img class="img-fluid w-100" src="{{ interior_item.image.url }}" alt="">
-                <a class="portfolio-title shadow-sm" href="#">
-                    <p class="h4 text-uppercase">{{ interior_item.category }}</p>
-                    <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ interior_item.description }}</span>
-                </a>
-                <a class="portfolio-btn" href="{{ interior_item.image.url }}" data-lightbox="portfolio">
-                    <i class="bi bi-plus text-white"></i>
-                </a>
-            </div>
-        </div>
-        {% endfor %}
-
-        <!-- Renovation -->
-        {% for renovation_item in renovation %}
-        <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item renovation">
-            <div class="position-relative portfolio-box">
-                <img class="img-fluid w-100" src="{{ renovation_item.image.url }}" alt="">
-                <a class="portfolio-title shadow-sm" href="#">
-                    <p class="h4 text-uppercase">{{ renovation_item.name }}</p>
-                    <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ renovation_item.description }}</span>
-                </a>
-                <a class="portfolio-btn" href="{{ renovation_item.image.url }}" data-lightbox="portfolio">
-                    <i class="bi bi-plus text-white"></i>
-                </a>
-            </div>
-        </div>
-        {% endfor %}
+    <!-- Interior Design -->
+{% for interior_item in Int %}
+<div class="col-xl-4 col-lg-6 col-md-6 portfolio-item interior">
+    <div class="position-relative portfolio-box">
+        <img class="img-fluid w-100" src="{{ interior_item.image.url }}" alt="">
+        <a class="portfolio-title shadow-sm" href="{% url 'Interiorsingle' Interior_id=interior_item.id %}">
+            <p class="h4 text-uppercase">{{ interior_item.category }}</p>
+        </a>
     </div>
 </div>
+{% endfor %}
+
+<!-- Renovation -->
+{% for renovation_item in Reno %}
+<div class="col-xl-4 col-lg-6 col-md-6 portfolio-item renovation">
+    <div class="position-relative portfolio-box">
+        <img class="img-fluid w-100" src="{{ renovation_item.image.url }}" alt="">
+        <a class="portfolio-title shadow-sm" href="{% url 'Renovationsingle' Reno_id=renovation_item.id %}">
+            <p class="h4 text-uppercase">{{ renovation_item.category }}</p>
+        </a>
+    </div>
+</div>
+{% endfor %}
+</div>
+
+</div>
 <!-- Portfolio End -->
+
 
 
     <!-- balance material sales start-->
@@ -535,7 +525,7 @@
 
 
    
-    {% endblock content %}
+    
     <!-- Footer Start -->
     <div class="footer container-fluid position-relative bg-dark bg-light-radial text-white-50 py-6 px-5">
         <div class="row g-5">
@@ -581,11 +571,12 @@
         </div>
     </div>
     <!-- Footer End -->
+    {% endblock content %}
    
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <!-- <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a> -->
 
 
     <!-- JavaScript Libraries -->
