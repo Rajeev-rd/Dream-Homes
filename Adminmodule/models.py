@@ -41,17 +41,18 @@ class Interior(models.Model):
         return self.name
 
 class Renovation(models.Model):
-    name = models.TextField()
+    category = models.CharField(max_length=100,default='',null=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='interior_images/', null=True, blank=True)
+    image = models.ImageField(upload_to='renovation_images/', null=True, blank=True)
 
     def __str__(self):
         return self.name
 
+
 class Status(models.Model):
     details = models.TextField()
-    image = models.ImageField(upload_to='interior_images/', null=True, blank=True)
+    image = models.ImageField(upload_to='status_images/', null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -71,7 +72,7 @@ class Balance(models.Model):
     name = models.TextField()
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='interior_images/', null=True, blank=True)
+    image = models.ImageField(upload_to='Balance_images/', null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -92,3 +93,19 @@ class Message(models.Model):
     msg=models.CharField(max_length=100)
     image = models.ImageField(null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+class AdvancePay(models.Model):
+    name = models.CharField( max_length=100)
+    Category = models.CharField( null=True,max_length=100)
+    AdvanceAmount = models.DecimalField(null=True, max_digits=10, decimal_places=2)  # Example for DecimalField
+    
+    
+class FullPay(models.Model):
+    name = models.CharField( null=True,max_length=100)
+    Category = models.CharField( null=True,max_length=100)
+    Labourcost=models.CharField( null=True,max_length=100)
+    Materialcost=models.CharField( null=True,max_length=100)
+    Amount = models.DecimalField(null=True, max_digits=10, decimal_places=2)  # Example for DecimalField
+
+    def __str__(self):
+        return self.name

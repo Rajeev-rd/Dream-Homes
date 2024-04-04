@@ -44,11 +44,11 @@
                             <form method="post" action="{% url 'addRenovation' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                             
-                                <select class="form-group custom-input" name="name" style="width: 700px;height:40px; border-radius: 50px;">
-                                    {% for i in data %}
-                                    <option>{{ i.name }}</option>
-                                    {% endfor %}
-                                </select>
+                            <select class="form-group custom-input" name="CategoryName" style="width: 700px;height:40px; border-radius: 50px;">
+                                {% for i in data %}
+                                <option>{{i.name}}</option>
+                                {% endfor %}
+                            </select>
                             
                                 <input type="text" name="description" placeholder="description" style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">
                                 <input type="text" name="price" placeholder="price" style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input">

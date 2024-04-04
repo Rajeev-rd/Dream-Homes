@@ -9,9 +9,12 @@ from django.views.generic import View, FormView
 from .forms import AppointmentRequestForm,TestimonialForm
 from .models import AppointmentRequest, Testimonial,Order_Address
 from django.contrib.auth.decorators import login_required
-from Adminmodule.models import Balance,Category, Message,Payment,Renovation,Interior
+from Adminmodule.models import AdvancePay, Balance,Category, FullPay, Message,Payment, Property,Renovation,Interior, Status
 import razorpay
 import logging
+from django.http import HttpResponse
+from django.db.models import Max
+
 # Create your views here.
 
 logger = logging.getLogger(__name__)
@@ -64,10 +67,13 @@ def indexfront(request):
         # Attempt to fetch data from the database
         datas = Balance.objects.all()
         cate = Category.objects.all()
+        Pro = Property.objects.all()
+        Int = Interior.objects.all()
+        Reno = Renovation.objects.all()
         testimonials = Testimonial.objects.all()
 
         # Render the template with the fetched data
-        return render(request, "frontendindexpage.html", {'testimonials': testimonials, 'datas': datas, 'cate': cate})
+        return render(request, "frontendindexpage.html", {'testimonials': testimonials, 'datas': datas, 'cate': cate,'Pro':Pro,"Int":Int,"Reno":Reno})
     except Exception as e:
         # Log the error for debugging purposes
         logger.error(f"An error occurred while fetching data: {e}")
@@ -78,7 +84,6 @@ def indexfront(request):
         else:
             # If the user is not authenticated or is not an admin, return a forbidden response
             return HttpResponseForbidden("You are not authorized to view this page.")
-
     
 #function for about page
 def about(request):
@@ -93,11 +98,18 @@ def service(request):
 
 #function for projects page
 def projects(request):
-    return render(request,"projects.html")
+    cate = Category.objects.all()
+    Pro = Property.objects.all()
+    Int = Interior.objects.all()
+    Reno = Renovation.objects.all()
+    return render(request,"projects.html",{'cate':cate,'Pro':Pro,"Int":Int,"Reno":Reno})
 
 #function for contact page
 def contact(request):
     cate = Category.objects.all()
+    Pro = Property.objects.all()
+    Int = Interior.objects.all()
+    Reno = Renovation.objects.all()
     return render(request,"contact.html",{'cate':cate})
 
 #function for testimonial
@@ -122,10 +134,6 @@ def submit_request(request):
         form = AppointmentRequestForm()
     
     return render(request, 'frontendindexpage.html', {'form': form, 'category': category})
-
-
-def updatestatus(request):
-    return render(request,"status.html")
 
 #function for testimonial
 def testimonial(request):
@@ -171,8 +179,17 @@ def delete_testimonial(request, testimonial_id):
         testimonial.delete()
     return redirect('testimonial')
 
+# def status(request):
+#     return render(request,'status.html')
+
 def status(request):
-    return render(request,'status.html')
+    latest_updates = Status.objects.values('CustomerName').annotate(latest_id=Max('id'))
+    data = []
+    for update in latest_updates:
+        latest_update = Status.objects.filter(CustomerName=update['CustomerName'], id=update['latest_id']).first()
+        data.append(latest_update)
+    return render(request, "status.html", {"data": data})
+
 
 #function of payment
 @login_required
@@ -193,7 +210,7 @@ def make_payment(request):
                 balance_item = Balance.objects.get(id=balance_item_id)
             except Balance.DoesNotExist:
                 # Handle case where Balance object does not exist for the given ID
-                return HttpResponseBadRequest("Invalid balance_item_id")
+                return JsonResponse({'success': False, 'message': 'Invalid balance_item_id'})
             
             # Process payment using Razorpay
             # For simplicity, let's assume the payment is successful
@@ -201,13 +218,12 @@ def make_payment(request):
             client = razorpay.Client(auth=('rzp_test_IzIBFTmzd3zzKk', 'mMvIdZd7a4EU1pMd9tSQEbE0'))
             payment = client.order.create({'amount': int(balance_item.price * 100), 'currency': "INR", 'payment_capture': '1'})
             
-            # Return payment details
-            return JsonResponse({'payment': payment})
+            # Return success response
+            return JsonResponse({'success': True, 'message': 'Payment successful'})
         else:
-            return HttpResponseBadRequest("balance_item_id is required")
+            return JsonResponse({'success': False, 'message': 'balance_item_id is required'})
     else:
-        return redirect('indexfront')
-
+        return JsonResponse({'success': False, 'message': 'Invalid request method'})
     
 
 def checkout_Address(request):
@@ -240,5 +256,104 @@ def message_user(request, dataid):
         key=attrgetter('timestamp'),
         reverse=True
     )
-
     return render(request, 'message_user.html', {"data": data, "all_msgs": all_msgs, "msg": msg})
+
+
+#function for construction single page
+def bltcntsingle(request, property_id):
+    # Retrieve the specific property from the database
+    property = get_object_or_404(Property, pk=property_id)
+
+    # Pass the property to the template
+    return render(request, "bldcnst_single.html", {'property': property})
+
+def initiate_payment(request, property_id):
+    if request.method == "POST":
+        property = get_object_or_404(Property, pk=property_id)
+        amount = 100000  # Set the amount to 1000 INR (100,000 paisa)
+        client = razorpay.Client(auth=("rzp_test_IzIBFTmzd3zzKk", "mMvIdZd7a4EU1pMd9tSQEbE0"))  # Replace with your Razorpay keys
+        payment_data = {
+            'amount': amount,
+            'currency': 'INR',
+            'receipt': 'receipt#1',
+            'payment_capture': 1  # Auto capture
+        }
+        payment = client.order.create(data=payment_data)
+        return JsonResponse({'property_id': property_id, 'amount': amount, 'id': payment.get('id')})
+
+def download_plan(request, property_id):
+    # Retrieve the specific property from the database
+    property = get_object_or_404(Property, pk=property_id)
+    
+    # Check if the user has made the payment
+    if user_has_paid(request.user, property_id):  # Check if user has paid
+        # Check if the property has a plan image
+        if property.plan_image:
+            # Open the plan image file
+            with open(property.plan_image.path, 'rb') as f:
+                # Create a response to serve the image as a file download
+                response = HttpResponse(f.read(), content_type='image/jpeg')
+                response['Content-Disposition'] = 'attachment; filename="plan_image.jpg"'
+                return response
+    else:
+        # Redirect user to payment page if not paid
+        return redirect('initiate_payment', property_id=property_id)
+
+def user_has_paid(user, property_id):
+    # Implement logic to check if user has paid for the property plan
+    # This could involve querying your database for payment status
+    return True  # Example implementation, replace with actual logic
+def bltcntafterpayment(request, property_id):
+    # Retrieve the specific property from the database
+    property = get_object_or_404(Property, pk=property_id)
+
+    # Pass the property to the template
+    return render(request, "bldcnst_afterpayment.html", {'property': property})
+
+#function for Interior single page
+def Interiorsingle(request, Interior_id):
+    # Retrieve the specific property from the database
+    Interiors = get_object_or_404(Interior, pk=Interior_id)
+
+    # Pass the property to the template
+    return render(request, "interior_single.html", {'Interior': Interiors})
+
+#function for Renovation single page
+def Renovationsingle(request, Reno_id):
+    # Retrieve the specific property from the database
+    Renovations = get_object_or_404(Renovation, pk=Reno_id)
+
+    # Pass the property to the template
+    return render(request, "reno_single.html", {'Renovation': Renovations})
+
+
+
+
+def advance_payment_page(request, Adv_amount_id):
+    # Retrieve the AdvancePay object using the Adv_amount_id
+    try:
+        adv_amount = AdvancePay.objects.get(id=Adv_amount_id)
+    except AdvancePay.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Invalid AdvancePay ID'})
+
+    # Pass the AdvancePay object to the template
+    return render(request, 'advance_payment_page.html', {'adv_amount': adv_amount})
+
+
+def Advance_payment(request):
+    if request.method == 'POST':
+        # Retrieve the amount from the POST data
+        amount = request.POST.get('amount')
+        
+        # Process the payment (using Razorpay or any other payment gateway)
+        # For simplicity, let's assume the payment is successful
+        # You can handle the payment processing here
+        
+        # Return a success response
+        return JsonResponse({'success': True, 'message': 'Payment successful'})
+    else:
+        return JsonResponse({'success': False, 'message': 'Invalid request method'})
+
+def full_payment_page(request):
+    data=FullPay.objects.all()
+    return render(request, 'full_payment_page.html', {"data":data})

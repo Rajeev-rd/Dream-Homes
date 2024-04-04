@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% extends 'frontendindexpage.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building construction</title>
+    <style>
+        .container {
+            width: 50%;
+            margin: auto;
+            text-align: center;
+        }
+        img {
+            width: 100%; /* Adjust the width of the image to fill the container */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 20px;
+        }
+        .download-link {
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Building Construction</h1>
+        <!-- Display property information here -->
+        <img src="{{ property.image.url }}" alt="Image">
+        <p>Property Name: {{ property.name }}</p>
+        <p>Description: {{ property.description }}</p>
+        <p>Amount:{{property.price}}</p>
+        {% if property.plan_image %}
+            <!-- Check if user has paid for the plan image -->
+            {% if user_has_paid %}
+                <!-- If user has paid, provide download link -->
+                <a href="{% url 'download_plan' property.id %}" class="download-link">Download Plan</a>
+            {% else %}
+                <!-- If user has not paid, display payment button -->
+                <button id="payBtn" class="btn btn-primary" data-property-id="{{ property.id }}">Pay to Download Plan</button>
+            {% endif %}
+        {% else %}
+            <p>No plan available</p>
+        {% endif %}
+    </div>
+
+    <!-- Include Razorpay Checkout script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+    document.getElementById('payBtn').addEventListener('click', function () {
+        var propertyId = this.getAttribute('data-property-id');
+        // Send AJAX request to initiate payment
+        fetch('{% url "initiate_payment" property.id %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            var options = {
+                "key": "rzp_test_IzIBFTmzd3zzKk",  // Replace with your Razorpay key
+                "amount": data.amount,
+                "currency": "INR",
+                "name": "Building Construction Plan",
+                "description": "Payment for plan download",
+                "order_id": data.id,
+                "handler": function (response){
+                    // Handle payment success
+                    window.location.href = "{% url 'bltcntafterpayment' property.id %}";
+                },
+                "prefill": {
+                    "name": "{{ user.username }}",  // Replace with user's name
+                    "email": "{{ user.email }}"      // Replace with user's email
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            var rzp = new Razorpay(options);
+            rzp.on('payment.success', function(response) {
+                // Change button text after payment success
+                document.getElementById('payBtn').innerText = "Payment Successful";
+            });
+            rzp.open();
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+
+</body>
+</html>
+{% endblock %}

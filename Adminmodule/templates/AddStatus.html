@@ -43,20 +43,26 @@
 <form method="post" action="{% url 'AddStatusFun' %}" enctype="multipart/form-data">
     {% csrf_token %}
 
-    <textarea type="text" name="details" placeholder="details"  style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input"></textarea>
+    <select class="form-group custom-input" name="CustomerName" style="width: 700px;height:40px; border-radius: 50px;">
+        {% for i in data %}
+        <option>{{i.username}}</option>
+        {% endfor %}
+    </select>
 
-<div class="form-group custom-input">
-    <div class="input-group">
-        <div class="custom-file" style="width: 900px; border-radius: 50px;">
-            <input type="file" name="image" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon">
-            <label class="custom-file-label" for="customFile">No file chosen</label>
-        </div>
-    </div>
-</div>
-<br>
 
+    <textarea type="text" name="details" placeholder="details" style="width: 900px;height:40px; border-radius: 50px;" class="form-group custom-input"></textarea>
+    
+                                <div class="form-group custom-input">
+                                    <div class="input-group">
+                                        <div class="custom-file" style="width: 900px; border-radius: 50px;">
+                                            <input type="file" name="image" class="custom-file-input" id="customFile" aria-describedby="inputGroupFileAddon">
+                                            <label class="custom-file-label" for="customFile">No file chosen</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Add
+                                    update status
                                 <button>
                                 
                             </form>

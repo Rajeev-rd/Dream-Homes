@@ -110,118 +110,93 @@
     
 
     <!-- Portfolio Start -->
-    <div class="container-fluid bg-light py-6 px-5">
-        <div class="text-center mx-auto mb-5" style="max-width: 600px;">
-            <h1 class="display-5 text-uppercase mb-4">Some Of Our <span class="text-primary">Popular</span> Dream Projects</h1>
-        </div>
-        <div class="row gx-5">
-            <div class="col-12 text-center">
-                <div class="d-inline-block bg-dark-radial text-center pt-4 px-5 mb-5">
-                    <ul class="list-inline mb-0" id="portfolio-flters">
-                        <li class="btn btn-outline-primary bg-white p-2 active mx-2 mb-4" data-filter="*">
-                            <img src="{% static  'img/portfolio-1.jpg' %}" style="width: 150px; height: 100px;">
-                            <div class="position-absolute top-0 start-0 end-0 bottom-0 m-2 d-flex align-items-center justify-content-center" style="background: rgba(4, 15, 40, .3);">
-                                <h6 class="text-white text-uppercase m-0">All</h6>
-                            </div>
-                        </li>
-                        <li class="btn btn-outline-primary bg-white p-2 mx-2 mb-4" data-filter=".first">
-                            <img src="{% static  'img/portfolio-6.jpg' %}" style="width: 150px; height: 100px;">
-                            <div class="position-absolute top-0 start-0 end-0 bottom-0 m-2 d-flex align-items-center justify-content-center" style="background: rgba(4, 15, 40, .3);">
-                                <h6 class="text-white text-uppercase m-0">Construction</h6>
-                            </div>
-                        </li>
-                        <li class="btn btn-outline-primary bg-white p-2 mx-2 mb-4" data-filter=".second">
-                            <img src="{% static  'img/portfolio-3.jpg' %}" style="width: 150px; height: 100px;">
-                            <div class="position-absolute top-0 start-0 end-0 bottom-0 m-2 d-flex align-items-center justify-content-center" style="background: rgba(4, 15, 40, .3);">
-                                <h6 class="text-white text-uppercase m-0">Renovation</h6>
-                            </div>
-                        </li>
-                        <li class="btn btn-outline-primary bg-white p-2 mx-2 mb-4" data-filter=".second">
-                            <img src="{% static  'img/service-4.jpg' %}" style="width: 150px; height: 100px;">
-                            <div class="position-absolute top-0 start-0 end-0 bottom-0 m-2 d-flex align-items-center justify-content-center" style="background: rgba(4, 15, 40, .3);">
-                                <h6 class="text-white text-uppercase m-0">Interior Design</h6>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row g-5 portfolio-container">
-            <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item first">
-                <div class="position-relative portfolio-box">
-                    <img class="img-fluid w-100" src="{% static 'img/portfolio-1.jpg' %}" alt="">
-                    <a class="portfolio-title shadow-sm" href="">
-                        <p class="h4 text-uppercase">Project Name</p>
-                        <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</span>
-                    </a>
-                    <a class="portfolio-btn" href="{% static 'img/portfolio-1.jpg' %}" data-lightbox="portfolio">
-                        <i class="bi bi-plus text-white"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item second">
-                <div class="position-relative portfolio-box">
-                    <img class="img-fluid w-100" src="{% static 'img/portfolio-2.jpg' %}" alt="">
-                    <a class="portfolio-title shadow-sm" href="">
-                        <p class="h4 text-uppercase">Project Name</p>
-                        <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</span>
-                    </a>
-                    <a class="portfolio-btn" href="{% static 'img/portfolio-2.jpg' %}" data-lightbox="portfolio">
-                        <i class="bi bi-plus text-white"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item first">
-                <div class="position-relative portfolio-box">
-                    <img class="img-fluid w-100" src="{% static 'img/portfolio-3.jpg' %}" alt="">
-                    <a class="portfolio-title shadow-sm" href="">
-                        <p class="h4 text-uppercase">Project Name</p>
-                        <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</span>
-                    </a>
-                    <a class="portfolio-btn" href="{% static 'img/portfolio-3.jpg' %}" data-lightbox="portfolio">
-                        <i class="bi bi-plus text-white"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item second">
-                <div class="position-relative portfolio-box">
-                    <img class="img-fluid w-100" src="{% static 'img/portfolio-4.jpg' %}" alt="">
-                    <a class="portfolio-title shadow-sm" href="">
-                        <p class="h4 text-uppercase">Project Name</p>
-                        <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</span>
-                    </a>
-                    <a class="portfolio-btn" href="{% static 'img/portfolio-4.jpg' %}" data-lightbox="portfolio">
-                        <i class="bi bi-plus text-white"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item first">
-                <div class="position-relative portfolio-box">
-                    <img class="img-fluid w-100" src="{% static 'img/portfolio-5.jpg' %}" alt="">
-                    <a class="portfolio-title shadow-sm" href="">
-                        <p class="h4 text-uppercase">Project Name</p>
-                        <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</span>
-                    </a>
-                    <a class="portfolio-btn" href="{% static 'img/portfolio-5.jpg' %}" data-lightbox="portfolio">
-                        <i class="bi bi-plus text-white"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item second">
-                <div class="position-relative portfolio-box">
-                    <img class="img-fluid w-100" src="{% static 'img/portfolio-6.jpg' %}" alt="">
-                    <a class="portfolio-title shadow-sm" href="">
-                        <p class="h4 text-uppercase">Project Name</p>
-                        <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</span>
-                    </a>
-                    <a class="portfolio-btn" href="{% static 'img/portfolio-6.jpg' %}" data-lightbox="portfolio">
-                        <i class="bi bi-plus text-white"></i>
-                    </a>
-                </div>
+<div class="container-fluid bg-light py-6 px-5">
+    <div class="text-center mx-auto mb-5" style="max-width: 600px;">
+        <h1 class="display-5 text-uppercase mb-4">Some Of Our <span class="text-primary">Popular</span> Dream Projects</h1>
+    </div>
+    <div class="row gx-5">
+        <div class="col-12 text-center">
+            <div class="d-inline-block bg-dark-radial text-center pt-4 px-5 mb-5">
+                <ul class="list-inline mb-0" id="portfolio-flters">
+                    <li class="btn btn-outline-primary bg-white p-2 active mx-2 mb-4" data-filter="*">
+                        <img src="{% static 'img/portfolio-1.jpg' %}" style="width: 150px; height: 100px;">
+                        <div class="position-absolute top-0 start-0 end-0 bottom-0 m-2 d-flex align-items-center justify-content-center" style="background: rgba(4, 15, 40, .3);">
+                            <h6 class="text-white text-uppercase m-0">All</h6>
+                        </div>
+                    </li>
+                    <li class="btn btn-outline-primary bg-white p-2 mx-2 mb-4" data-filter=".building">
+                        <img src="{% static 'img/portfolio-6.jpg' %}" style="width: 150px; height: 100px;">
+                        <div class="position-absolute top-0 start-0 end-0 bottom-0 m-2 d-flex align-items-center justify-content-center" style="background: rgba(4, 15, 40, .3);">
+                            <h6 class="text-white text-uppercase m-0">Building Construction</h6>
+                        </div>
+                    </li>
+                    <li class="btn btn-outline-primary bg-white p-2 mx-2 mb-4" data-filter=".interior">
+                        <img src="{% static 'img/portfolio-3.jpg' %}" style="width: 150px; height: 100px;">
+                        <div class="position-absolute top-0 start-0 end-0 bottom-0 m-2 d-flex align-items-center justify-content-center" style="background: rgba(4, 15, 40, .3);">
+                            <h6 class="text-white text-uppercase m-0">Interior Design</h6>
+                        </div>
+                    </li>
+                    <li class="btn btn-outline-primary bg-white p-2 mx-2 mb-4" data-filter=".renovation">
+                        <img src="{% static 'img/service-4.jpg' %}" style="width: 150px; height: 100px;">
+                        <div class="position-absolute top-0 start-0 end-0 bottom-0 m-2 d-flex align-items-center justify-content-center" style="background: rgba(4, 15, 40, .3);">
+                            <h6 class="text-white text-uppercase m-0">Renovation</h6>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-    <!-- Portfolio End -->
+    <div class="row g-5 portfolio-container">
+        <!-- Building Construction -->
+        {% for property in Pro %}
+        <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item building">
+            <div class="position-relative portfolio-box">
+                <img class="img-fluid w-100" src="{{ property.image.url }}" alt="">
+                <a class="portfolio-title shadow-sm" href="{% url 'bltcntsingle' %}">
+                    <p class="h4 text-uppercase">{{ property.name }}</p>
+                    <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ property.description }}</span>
+                </a>
+                <a class="portfolio-btn" href="{{ property.image.url }}" data-lightbox="portfolio">
+                    <i class="bi bi-plus text-white"></i>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Interior Design -->
+        {% for interior_item in Int %}
+        <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item interior">
+            <div class="position-relative portfolio-box">
+                <img class="img-fluid w-100" src="{{ interior_item.image.url }}" alt="">
+                <a class="portfolio-title shadow-sm" href="#">
+                    <p class="h4 text-uppercase">{{ interior_item.category }}</p>
+                    <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ interior_item.description }}</span>
+                </a>
+                <a class="portfolio-btn" href="{{ interior_item.image.url }}" data-lightbox="portfolio">
+                    <i class="bi bi-plus text-white"></i>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Renovation -->
+        {% for renovation_item in Reno %}
+        <div class="col-xl-4 col-lg-6 col-md-6 portfolio-item renovation">
+            <div class="position-relative portfolio-box">
+                <img class="img-fluid w-100" src="{{ renovation_item.image.url }}" alt="">
+                <a class="portfolio-title shadow-sm" href="#">
+                    <p class="h4 text-uppercase">{{ renovation_item.name }}</p>
+                    <span class="text-body"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ renovation_item.description }}</span>
+                </a>
+                <a class="portfolio-btn" href="{{ renovation_item.image.url }}" data-lightbox="portfolio">
+                    <i class="bi bi-plus text-white"></i>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Portfolio End -->
     
 
     <!-- Footer Start -->
