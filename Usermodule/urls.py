@@ -35,7 +35,11 @@ urlpatterns = [
     path('Interiorsingle/<int:Interior_id>/', views.Interiorsingle, name='Interiorsingle'),
     path('Renovationsingle/<int:Reno_id>/', views.Renovationsingle, name='Renovationsingle'),
 
-    path('advance_payments/', views.advance_payment_page, name='advance_payment_page'),
+    path('advance_payment_page/', views.advance_payment_page, name='advance_payment_page'),
+    path('advance_payment/', views.advance_payment, name='advance_payment'),
+
     path('full_payments/', views.full_payment_page, name='full_payment_page'),
+    path('full_payment/', views.full_payment, name='full_payment'),
+
 
 ]

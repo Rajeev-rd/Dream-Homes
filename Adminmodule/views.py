@@ -460,10 +460,10 @@ def FullAmound(request):
         labour_cost = request.POST.get("labour_cost")
         material_cost = request.POST.get("material_cost")
         total_amount = request.POST.get("total_amount")
-        obj = FullPay(username=username, Category=category, Labourcost=labour_cost, Materialcost=material_cost, Amount=total_amount)
+        obj = FullPay(name=username, Category=category, Labourcost=labour_cost, Materialcost=material_cost, Amount=total_amount)
         obj.save()
         messages.success(request, "Successfully")
-    return redirect('full_pays')  # Assuming you have a URL named 'full_pays' defined in your URLs
+    return redirect('FullPays')  # Assuming you have a URL named 'full_pays' defined in your URLs
 
 
 

@@ -328,32 +328,56 @@ def Renovationsingle(request, Reno_id):
 
 
 
+def advance_payment_page(request):
+    data=AdvancePay.objects.all()
+    return render(request, "Advance_payment_page.html",{"data":data})
 
-def advance_payment_page(request, Adv_amount_id):
-    # Retrieve the AdvancePay object using the Adv_amount_id
-    try:
-        adv_amount = AdvancePay.objects.get(id=Adv_amount_id)
-    except AdvancePay.DoesNotExist:
-        return JsonResponse({'success': False, 'message': 'Invalid AdvancePay ID'})
-
-    # Pass the AdvancePay object to the template
-    return render(request, 'advance_payment_page.html', {'adv_amount': adv_amount})
-
-
-def Advance_payment(request):
+def advance_payment(request):
     if request.method == 'POST':
-        # Retrieve the amount from the POST data
-        amount = request.POST.get('amount')
-        
-        # Process the payment (using Razorpay or any other payment gateway)
-        # For simplicity, let's assume the payment is successful
-        # You can handle the payment processing here
-        
-        # Return a success response
-        return JsonResponse({'success': True, 'message': 'Payment successful'})
+        adv_amount_id = request.POST.get('adv_amount_id')
+
+        if adv_amount_id:
+            try:
+                advance_bill = AdvancePay.objects.get(id=adv_amount_id)
+            except AdvancePay.DoesNotExist:
+                return JsonResponse({'success': False, 'message': 'Invalid advance bill ID'})
+
+            client = razorpay.Client(auth=('rzp_test_IzIBFTmzd3zzKk', 'mMvIdZd7a4EU1pMd9tSQEbE0'))
+            amount_in_paise = int(advance_bill.AdvanceAmount * 100)
+            payment = client.order.create({'amount': amount_in_paise, 'currency': 'INR', 'payment_capture': '1'})
+
+          # Delete the bill from the database
+            advance_bill.delete()
+
+            # Assuming you want to redirect to a payment page after creating the order
+            return redirect('advance_payment_page')  
+        else:
+            return JsonResponse({'success': False, 'message': 'adv_amount_id is required'})
     else:
         return JsonResponse({'success': False, 'message': 'Invalid request method'})
 
 def full_payment_page(request):
     data=FullPay.objects.all()
     return render(request, 'full_payment_page.html', {"data":data})
+
+def full_payment(request):
+    if request.method == 'POST':
+        full_amount_id = request.POST.get('full_amount_id')
+
+        if full_amount_id:
+            try:
+                advance_bill = FullPay.objects.get(id=full_amount_id)
+            except FullPay.DoesNotExist:
+                return JsonResponse({'success': False, 'message': 'Invalid advance bill ID'})
+
+            client = razorpay.Client(auth=('rzp_test_IzIBFTmzd3zzKk', 'mMvIdZd7a4EU1pMd9tSQEbE0'))
+            amount_in_paise = int(advance_bill.Amount * 100)
+            payment = client.order.create({'amount': amount_in_paise, 'currency': 'INR', 'payment_capture': '1'})
+
+            # Assuming you want to redirect to a payment page after creating the order
+            return redirect('full_payment_page')  
+        else:
+            return JsonResponse({'success': False, 'message': 'adv_amount_id is required'})
+    else:
+        return JsonResponse({'success': False, 'message': 'Invalid request method'})
+

@@ -41,7 +41,7 @@
                     <i class="bi bi-geo-alt fs-1 text-primary me-3"></i>
                     <div class="text-start">
                         <h6 class="text-uppercase fw-bold">Our Office</h6>
-                        <span>123 Street, New York, USA</span>
+                        <span>kakkand kochi</span>
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                     <i class="bi bi-envelope-open fs-1 text-primary me-3"></i>
                     <div class="text-start">
                         <h6 class="text-uppercase fw-bold">Email Us</h6>
-                        <span>info@example.com</span>
+                        <span>dreamhomes@example.com</span>
                     </div>
                 </div>
             </div>
@@ -131,28 +131,24 @@
                                 <th>Pay</th>
                             </tr>
                         </tfoot>
-                        {% for i in data %}
-                        {% if i.name == user.username %}
                         <tbody>
-                            <tr>
-                                
-                                <td>{{i.name}}</td>
-                                <td>{{i.Category}}</td>
-                                <td>{{i.AdvanceAmount}}</td>
-                                
-                                <form action="{% url 'Advance_payment' %}" method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <td>
-                                    <input type="hidden" name="Adv_amount_id" value="{{ adv_amount.id }}">
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">Pay</button>
-                                </td>
-                                </form>
-                                
-                            </tr>
-         
+                            {% for i in data %}
+                                {% if i.name == user.username %}
+                                    <tr>
+                                        <td>{{ i.name }}</td>
+                                        <td>{{ i.Category }}</td>
+                                        <td>{{ i.AdvanceAmount }}</td>
+                                        <td>
+                                            <form id="paymentForm{{ i.id }}" action="{% url 'advance_payment' %}" method="post" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="adv_amount_id" value="{{ i.id }}">
+                                                <button type="button" class="btn btn-primary btn-user btn-block payButton" data-amount="{{ i.AdvanceAmount }}">Pay</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
                         </tbody>
-                        {% endif %}
-                        {% endfor %}
                     </table>
                 </div>
             </div>
@@ -227,6 +223,39 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- payment scrip  -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var payButtons = document.querySelectorAll('.payButton');
+        payButtons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                var amount = parseInt(event.target.dataset.amount) * 100; // Convert amount to paise
+                var formId = '#paymentForm' + event.target.dataset.id;
+                var form = document.querySelector(formId);
+                var options = {
+                    "key": "rzp_test_IzIBFTmzd3zzKk",
+                    "amount": amount,
+                    "currency": "INR",
+                    "name": "Dream Home",
+                    "description": "Test Payment",
+                    "image": "https://example.com/your_logo.jpg",
+                    "handler": function (response) {
+                        // Redirect to the desired page after successful payment
+                        window.location.href = "{% url 'indexfront' %}";
+                    },
+                    "prefill": {
+                        "name": "Dream Homes"
+                    }
+                };
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+            });
+        });
+    });
+</script>
+
 </body>
 
 </html>
