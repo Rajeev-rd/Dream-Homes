@@ -336,12 +336,13 @@ def advance_payment(request):
     if request.method == 'POST':
         adv_amount_id = request.POST.get('adv_amount_id')
 
+        # if adv_amount_id:
+        #     try:
+        #         advance_bill = AdvancePay.objects.get(id=adv_amount_id)
+        #     except AdvancePay.DoesNotExist:
+        #         return JsonResponse({'success': False, 'message': 'Invalid advance bill ID'})
         if adv_amount_id:
-            try:
-                advance_bill = AdvancePay.objects.get(id=adv_amount_id)
-            except AdvancePay.DoesNotExist:
-                return JsonResponse({'success': False, 'message': 'Invalid advance bill ID'})
-
+            advance_bill = AdvancePay.objects.get(id=adv_amount_id)
             client = razorpay.Client(auth=('rzp_test_IzIBFTmzd3zzKk', 'mMvIdZd7a4EU1pMd9tSQEbE0'))
             amount_in_paise = int(advance_bill.AdvanceAmount * 100)
             payment = client.order.create({'amount': amount_in_paise, 'currency': 'INR', 'payment_capture': '1'})
