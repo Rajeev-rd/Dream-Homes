@@ -183,12 +183,13 @@ def delete_testimonial(request, testimonial_id):
 #     return render(request,'status.html')
 
 def status(request):
-    latest_updates = Status.objects.values('CustomerName').annotate(latest_id=Max('id'))
+    latest_updates = Status.objects.values('details').annotate(latest_id=Max('id'))
     data = []
     for update in latest_updates:
-        latest_update = Status.objects.filter(CustomerName=update['CustomerName'], id=update['latest_id']).first()
+        latest_update = Status.objects.filter(details=update['details'], id=update['latest_id']).first()
         data.append(latest_update)
     return render(request, "status.html", {"data": data})
+
 
 
 #function of payment

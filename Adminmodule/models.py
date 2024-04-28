@@ -49,13 +49,15 @@ class Renovation(models.Model):
     def __str__(self):
         return self.name
 
-
 class Status(models.Model):
+    CustomerName = models.CharField(max_length=100, null=True)  # Make the field nullable
     details = models.TextField()
     image = models.ImageField(upload_to='status_images/', null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.CustomerName if self.CustomerName else 'No Customer Name'  # Adjust __str__ method if needed
+
+
     
 
 class Contact(models.Model):
