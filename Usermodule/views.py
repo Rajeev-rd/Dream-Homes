@@ -230,15 +230,15 @@ def make_payment(request):
 def checkout_Address(request):
     if request.method == 'POST':
         address = request.POST.get('address')
-        city = request.POST.get('city')
-        state = request.POST.get('state')
+        # city = request.POST.get('city')
+        # state = request.POST.get('state')
         postal_code = request.POST.get('postal_code')
         
         # Create and save the Address object
         address_obj = Order_Address.objects.create(
             address=address,
-            city=city,
-            state=state,
+            # city=city,
+            # state=state,
             postal_code=postal_code,
         )
         address_obj.save()
