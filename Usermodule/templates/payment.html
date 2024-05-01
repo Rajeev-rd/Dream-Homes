@@ -125,7 +125,7 @@
             <label for="address" class="form-label">Address</label>
             <textarea class="form-control" id="address" name="address" rows="2" required></textarea>
           </div>
-          <div class="row mb-3">
+          <!-- <div class="row mb-3">
             <div class="col-md-6">
               <label for="city" class="form-label">City</label>
               <input type="text" class="form-control" id="city" name="city" required>
@@ -133,7 +133,7 @@
             <div class="col-md-6">
               <label for="state" class="form-label">State</label>
               <input type="text" class="form-control" id="state" name="state" required>
-            </div>
+            </div> -->
           </div>
           <div class="row mb-3">
             <div class="col-md-6">
@@ -170,14 +170,12 @@
 
     var rzp1 = new Razorpay(options);
 
-    // Enable payButton if all form fields are filled
-    function checkForm() {
+   // Enable payButton if all required form fields are filled
+   function checkForm() {
         var address = document.getElementById("address").value;
-        var city = document.getElementById("city").value;
-        var state = document.getElementById("state").value;
         var postalCode = document.getElementById("postal_code").value;
 
-        if (address && city && state && postalCode) {
+        if (address && postalCode) {
             document.getElementById("payButton").disabled = false;
         } else {
             document.getElementById("payButton").disabled = true;
@@ -190,8 +188,11 @@
         rzp1.open(); // Open Razorpay payment modal
     });
 
+
+    
+
     // Validate form on input change
-    document.querySelectorAll('input').forEach(item => {
+    document.querySelectorAll('input, textarea').forEach(item => {
         item.addEventListener('input', checkForm);
     });
 </script>
