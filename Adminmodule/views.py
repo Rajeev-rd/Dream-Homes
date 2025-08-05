@@ -1,5 +1,4 @@
 from datetime import timezone
-from pyexpat.errors import messages
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -87,10 +86,9 @@ def Addpropertyfun(request):
 
 
         IM = request.FILES["image"]
-        plan_image_file = request.FILES["plan_image"]
         category_instance = Category.objects.get(name=CategoryName)
 
-        obj = Property(category=category_instance, name=name, price=price, description=description, floor=floor, sqft=sqft, image=IM,plan_image=plan_image_file)
+        obj = Property(category=category_instance, name=name, price=price, description=description, floor=floor, sqft=sqft, image=IM)
         obj.save()
     return redirect(showproperty)
 
@@ -183,6 +181,31 @@ def showinterior(request):
     return render(request, "showinterior.html",{"data":data})
 
 
+# def updateinteriorcategory(request,dataid):
+#     data=InteriorCategory.objects.filter(id=dataid)
+#     return render(request, "updateinteriorcategory.html",{"data":data})
+
+# def updateinteriorfun1(request, item):
+#     if request.method=="POST":
+#         name= request.POST.get("name")
+#         description = request.POST.get("description")
+        
+
+#         try:
+#             IM=request.FILES['image']
+#             FS=FileSystemStorage()
+#             file=FS.save(IM.name,IM)
+
+#         except MultiValueDictKeyError:
+#             file=InteriorCategory.objects.get(id=item).image
+
+#         InteriorCategory.objects.filter(id=item).update(name=name,description=description,image=file)
+#     return redirect(showinteriorcategory)
+
+# def deleteinteriorcategory(request, dataid):
+#     data=InteriorCategory.objects.filter(id=dataid)
+#     data.delete()
+#     return redirect(showinteriorcategory)
 
 
 
@@ -224,20 +247,22 @@ def showmembers(request):
 
 
 def AddStatus(request):
-    data=User.objects.all()
-    return render(request, "AddStatus.html",{"data":data})
+    return render(request, "AddStatus.html")
+
+
 
 
 def AddStatusFun(request):
 
     if request.method == "POST":
-        CustomerName = request.POST.get("CustomerName")
         details = request.POST.get("details")
+
         IM = request.FILES["image"]
-        obj = Status(CustomerName=CustomerName,details=details,image=IM)
+        obj = Status(details=details,image=IM)
         obj.save()
-        messages.success(request, "Add Status Successfully")
-    return redirect(AddStatus)
+    return redirect(Addinterior)
+
+
 
 def Message(request):
     return render(request, "messagestable.html")
@@ -317,15 +342,15 @@ def Renovations(request):
 def addRenovation(request):
 
     if request.method == "POST":
-        CategoryName = request.POST.get("CategoryName")
+        name= request.POST.get("name")
         description = request.POST.get("description")
         price = request.POST.get("price")
 
 
         IM = request.FILES["image"]
-        obj = Renovation(category=CategoryName,description=description,price=price,image=IM)
+        obj = Renovation(name=name,description=description,price=price,image=IM)
         obj.save()
-    return redirect(Renovations)
+    return redirect(balance)
 
 
 
@@ -341,6 +366,7 @@ def updateRenovation(request,dataid):
 
 def updateRenovationfun(request, item):
     if request.method=="POST":
+        name= request.POST.get("name")
         description = request.POST.get("description")
         price = request.POST.get("price")
         
@@ -353,7 +379,7 @@ def updateRenovationfun(request, item):
         except MultiValueDictKeyError:
             file=Renovation.objects.get(id=item).image
 
-        Renovation.objects.filter(id=item).update(description=description,price=price,image=file)
+        Renovation.objects.filter(id=item).update(name=name,description=description,price=price,image=file)
     return redirect(showRenovation)
 
 def deleteRenovation(request, dataid):
@@ -370,7 +396,7 @@ def MessageTable(request):
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .models import AdvancePay, FullPay, Message
+from .models import Message
 
 
 from django.shortcuts import redirect, HttpResponse
@@ -384,8 +410,10 @@ from django.shortcuts import render, redirect
 from .models import Message
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+import razorpay
 
-
+# Initialize Razorpay client
+razorpay_client = razorpay.Client(auth=('YOUR_RAZORPAY_API_KEY', 'YOUR_RAZORPAY_API_SECRET'))
 
 def add_message(request):
     alert = False
@@ -398,73 +426,39 @@ def add_message(request):
         # Use get method with a default value for 'image' to avoid MultiValueDictKeyError
         image = request.FILES.get("image", None)
 
+        # Check if the message contains a payment request keyword
+        if msg.startswith('/pay'):
+            # Extract amount and description from the message
+            _, amount, description = msg.split(' ', 2)
+            
+            # Generate payment link
+            payment_link = generate_payment_link(amount, description)
+            
+            # Include the payment link in the message
+            msg += f'\nPayment Link: {payment_link}'
+
         obj = Message(receiver=receiver, sender=sender, msg=msg, image=image)
         obj.save()
         if sender == "admin":
-            
-            return redirect('showmessage',dataid=receiver)
+            return redirect('showmessage', dataid=receiver)
         else:
-            
             return redirect('message_user', dataid=receiver)
 
     return render(request, 'web.html', {'alert': alert})
 
+def generate_payment_link(amount, description):
+    # Create Razorpay payment order
+    order = razorpay_client.order.create({
+        'amount': amount,  # Amount in paise
+        'currency': 'INR',
+        'description': description,
+        'payment_capture': 1  # Auto capture payment
+    })
 
-from django.shortcuts import render
-from django.db.models import Q
-from operator import attrgetter
-from itertools import chain
-from .models import Message
+    # Construct payment link using the order ID
+    payment_link = f"https://example.com/pay/{order['id']}"  # Replace example.com with your domain
 
-def showmessage(request, dataid):
-    current_user = request.user
-    msg = AppointmentRequest.objects.filter(name=dataid)
-
-    data = Message.objects.filter(Q(sender=dataid) | Q(receiver=dataid))
-
-    all_msgs = sorted(
-        data,
-        key=attrgetter('timestamp'),
-        reverse=True
-    )
-
-    return render(request, 'showmessage.html', {"data": data, "all_msgs": all_msgs, "msg": msg})
-
-from django.shortcuts import render, redirect
-from .models import AdvancePay, FullPay, Category, User
-from django.contrib import messages
-
-def Advance(request):
-    data = Category.objects.all()  
-    datas = User.objects.all() 
-    return render(request, "Advance.html",{"data":data,"datas":datas})
-
-def AdvancePays(request):
-    if request.method == "POST":
-        name= request.POST.get("name")
-        category = request.POST.get("category")
-        advance_amount = request.POST.get("advance_amount")
-        obj = AdvancePay(name=name, Category=category, AdvanceAmount=advance_amount)
-        obj.save()
-    return redirect('balance')  # Assuming you have a URL named 'balance' defined in your URLs
-
-def FullPays(request):
-    datas = User.objects.all()
-    data = Category.objects.all()  
-    return render(request, "FullPay.html",{"data":data,"datas":datas})
-
-def FullAmound(request):
-    if request.method == "POST":
-        username= request.POST.get("username")
-        category = request.POST.get("category")
-        labour_cost = request.POST.get("labour_cost")
-        material_cost = request.POST.get("material_cost")
-        total_amount = request.POST.get("total_amount")
-        obj = FullPay(name=username, Category=category, Labourcost=labour_cost, Materialcost=material_cost, Amount=total_amount)
-        obj.save()
-        messages.success(request, "Successfully")
-    return redirect('FullPays')  # Assuming you have a URL named 'full_pays' defined in your URLs
-
+    return payment_link
 
 
 

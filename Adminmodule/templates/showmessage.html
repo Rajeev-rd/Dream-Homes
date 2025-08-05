@@ -166,7 +166,6 @@
 
         <div class="message-input-container" style="position: fixed; bottom: 50px; width: 800px;background-color: rgb(133, 176, 190); padding: 10px;border-radius: 10px;">
             {% for i in msg %}
-            {% if forloop.first %}
                 <form method="post" action="{% url 'add_message' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input type="hidden" name="receiver" value="{{i.name}}">
@@ -175,7 +174,6 @@
                     <input type="file" class="image-input" style="margin-left:10px;" name="image">
                     <button class="send-button">Send</button>
                 </form>
-                {% endif %}
             {% endfor %}
         </div>
     </div>
